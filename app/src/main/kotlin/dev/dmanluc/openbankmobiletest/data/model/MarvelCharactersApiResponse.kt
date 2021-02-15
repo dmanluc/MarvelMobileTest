@@ -38,11 +38,11 @@ data class Data(
 @Serializable
 data class Result(
     @SerialName("comics")
-    val comics: Comics?,
+    val comics: Collection?,
     @SerialName("description")
     val description: String?,
     @SerialName("events")
-    val events: Events?,
+    val events: Collection?,
     @SerialName("id")
     val id: String?,
     @SerialName("modified")
@@ -52,9 +52,9 @@ data class Result(
     @SerialName("resourceURI")
     val resourceURI: String?,
     @SerialName("series")
-    val series: Series?,
+    val series: Collection?,
     @SerialName("stories")
-    val stories: Stories?,
+    val stories: Collection?,
     @SerialName("thumbnail")
     val thumbnail: Thumbnail?,
     @SerialName("urls")
@@ -62,43 +62,7 @@ data class Result(
 )
 
 @Serializable
-data class Comics(
-    @SerialName("available")
-    val available: String?,
-    @SerialName("collectionURI")
-    val collectionURI: String?,
-    @SerialName("items")
-    val items: List<Item>?,
-    @SerialName("returned")
-    val returned: String?
-)
-
-@Serializable
-data class Events(
-    @SerialName("available")
-    val available: String?,
-    @SerialName("collectionURI")
-    val collectionURI: String?,
-    @SerialName("items")
-    val items: List<Item>?,
-    @SerialName("returned")
-    val returned: String?
-)
-
-@Serializable
-data class Series(
-    @SerialName("available")
-    val available: String?,
-    @SerialName("collectionURI")
-    val collectionURI: String?,
-    @SerialName("items")
-    val items: List<Item>?,
-    @SerialName("returned")
-    val returned: String?
-)
-
-@Serializable
-data class Stories(
+data class Collection(
     @SerialName("available")
     val available: String?,
     @SerialName("collectionURI")
