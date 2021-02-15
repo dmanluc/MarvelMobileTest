@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
+    kotlin("plugin.serialization") version Versions.kotlin
 }
 
 android {

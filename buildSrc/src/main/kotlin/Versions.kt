@@ -9,6 +9,9 @@ object Versions {
     val constraintLayout = "2.0.4"
     val materialDesign = "1.3.0"
 
+    //Frameworks
+    val kotlinxSerializationJson = "1.0.1"
+
     // Testing
     val junit = "4.13.1"
     val extJunit = "1.1.2"

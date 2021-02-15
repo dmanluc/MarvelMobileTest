@@ -1,8 +1,10 @@
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
 object AppDependencies {
-    // Kotlin StdLib
+    // Kotlin
     val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
+    private val kotlinxSerializationJson =
+        "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerializationJson}"
 
     //Android
     private val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
@@ -22,6 +24,7 @@ object AppDependencies {
         add(appcompat)
         add(constraintLayout)
         add(materialDesign)
+        add(kotlinxSerializationJson)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {
