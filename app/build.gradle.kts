@@ -17,6 +17,21 @@ android {
         testInstrumentationRunner(AppConfig.androidTestInstrumentation)
     }
 
+    sourceSets.getByName("main") {
+        java.srcDir("src/main/java")
+        java.srcDir("src/main/kotlin")
+    }
+
+    sourceSets.getByName("test") {
+        java.srcDir("src/test/java")
+        java.srcDir("src/test/kotlin")
+    }
+
+    sourceSets.getByName("androidTest") {
+        java.srcDir("src/androidTest/java")
+        java.srcDir("src/androidTest/kotlin")
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
