@@ -3,8 +3,6 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 object AppDependencies {
     // Kotlin
     val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
-    private val kotlinxSerializationJson =
-        "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerializationJson}"
 
     //Android
     private val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
@@ -12,6 +10,14 @@ object AppDependencies {
     private val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     private val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
+
+    //Frameworks
+    private val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    private val retrofitMoshiConverter =
+        "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
+    private val moshi = "com.squareup.moshi:moshi:$${Versions.moshi}"
+    private val moshiAnnotationProcessor =
+        "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
 
     //Testing
     private val junit = "junit:junit:${Versions.junit}"
@@ -24,7 +30,9 @@ object AppDependencies {
         add(appcompat)
         add(constraintLayout)
         add(materialDesign)
-        add(kotlinxSerializationJson)
+        add(retrofit)
+        add(retrofitMoshiConverter)
+        add(moshi)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {
@@ -34,6 +42,10 @@ object AppDependencies {
 
     val testLibraries = arrayListOf<String>().apply {
         add(junit)
+    }
+
+    val kaptProcessorLibraries = arrayListOf<String>().apply {
+        add(moshiAnnotationProcessor)
     }
 }
 

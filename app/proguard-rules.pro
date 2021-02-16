@@ -19,23 +19,26 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# JSR 305 annotations are for embedding nullability information.
 
--keepattributes *Annotation*, InnerClasses
--dontnote kotlinx.serialization.AnnotationsKt # core serialization annotations
+# ------- Moshi ------- #
+-dontwarn javax.annotation.**
 
-# kotlinx-serialization-json specific. Add this if you have java.lang.NoClassDefFoundError kotlinx.serialization.json.JsonObjectSerializer
--keepclassmembers class kotlinx.serialization.json.** {
-    *** Companion;
-}
--keepclasseswithmembers class kotlinx.serialization.json.** {
-    kotlinx.serialization.KSerializer serializer(...);
+-keepclasseswithmembers class * {
+    @com.squareup.moshi.* <methods>;
 }
 
-# Change here dev.dmanluc.openbankmobiletest
--keep,includedescriptorclasses class dev.dmanluc.openbankmobiletest.**$$serializer { *; } # <-- change package name to your app's
--keepclassmembers class dev.dmanluc.openbankmobiletest.** { # <-- change package name to your app's
-    *** Companion;
+-keep @com.squareup.moshi.JsonQualifier interface *
+
+# Enum field names are used by the integrated EnumJsonAdapter.
+# values() is synthesized by the Kotlin compiler and is used by EnumJsonAdapter indirectly
+# Annotate enums with @JsonClass(generateAdapter = false) to use them with Moshi.
+-keepclassmembers @com.squareup.moshi.JsonClass class * extends java.lang.Enum {
+    <fields>;
+    **[] values();
 }
--keepclasseswithmembers class dev.dmanluc.openbankmobiletest.** { # <-- change package name to your app's
-    kotlinx.serialization.KSerializer serializer(...);
+
+# Keep helper method to avoid R8 optimisation that would keep all Kotlin Metadata when unwanted
+-keepclassmembers class com.squareup.moshi.internal.Util {
+    private static java.lang.String getKotlinMetadataClassName();
 }

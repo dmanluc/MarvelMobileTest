@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
-    kotlin("plugin.serialization") version Versions.kotlin
+    kotlin("kapt")
 }
 
 android {
@@ -56,6 +56,7 @@ android {
 
 dependencies {
     implementation(AppDependencies.appLibraries)
+    kapt(AppDependencies.kaptProcessorLibraries)
     testImplementation(AppDependencies.testLibraries)
     androidTestImplementation(AppDependencies.androidTestLibraries)
 }

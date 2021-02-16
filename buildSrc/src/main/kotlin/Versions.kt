@@ -10,7 +10,8 @@ object Versions {
     val materialDesign = "1.3.0"
 
     //Frameworks
-    val kotlinxSerializationJson = "1.0.1"
+    val retrofit = "2.9.0"
+    val moshi = "1.11.0"
 
     // Testing
     val junit = "4.13.1"
