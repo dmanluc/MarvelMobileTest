@@ -11,7 +11,11 @@ object Versions {
 
     //Frameworks
     val retrofit = "2.9.0"
-    val moshi = "1.11.0"
+    val gson = "2.8.6"
+    val coroutines = "1.4.2"
+    val koin = "2.1.5"
+    val httpLoggingInterceptor = "4.8.0"
+    val arrowCore = "0.10.5"
 
     // Testing
     val junit = "4.13.1"

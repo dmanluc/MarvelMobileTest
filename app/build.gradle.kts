@@ -1,8 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("android.extensions")
-    kotlin("kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -17,6 +16,10 @@ android {
         versionName = AppConfig.versionName
 
         testInstrumentationRunner(AppConfig.androidTestInstrumentation)
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     sourceSets.getByName("main") {
@@ -44,6 +47,16 @@ android {
         }
     }
 
+    val marvelBaseUrl = (project.property("MARVEL_BASE_URL") as? String).orEmpty()
+    val marvelApiKey = (project.property("MARVEL_API_KEY") as? String).orEmpty()
+    val marvelApiSecret = (project.property("MARVEL_API_SECRET") as? String).orEmpty()
+
+    buildTypes.forEach {
+        it.buildConfigField("String", "MARVEL_BASE_URL", marvelBaseUrl)
+        it.buildConfigField("String", "MARVEL_API_KEY", marvelApiKey)
+        it.buildConfigField("String", "MARVEL_API_SECRET", marvelApiSecret)
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -56,7 +69,6 @@ android {
 
 dependencies {
     implementation(AppDependencies.appLibraries)
-    kapt(AppDependencies.kaptProcessorLibraries)
     testImplementation(AppDependencies.testLibraries)
     androidTestImplementation(AppDependencies.androidTestLibraries)
 }

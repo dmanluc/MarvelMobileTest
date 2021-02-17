@@ -1,98 +1,92 @@
-import com.squareup.moshi.JsonClass
-import com.squareup.moshi.Json
+package dev.dmanluc.openbankmobiletest.data.model
 
-@JsonClass(generateAdapter = true)
+import com.google.gson.annotations.SerializedName
+
 data class MarvelCharactersApiResponse(
-    @Json(name = "attributionHTML")
+    @SerializedName("attributionHTML")
     val attributionHTML: String?,
-    @Json(name = "attributionText")
+    @SerializedName("attributionText")
     val attributionText: String?,
-    @Json(name = "code")
+    @SerializedName("code")
     val code: String?,
-    @Json(name = "copyright")
+    @SerializedName("copyright")
     val copyright: String?,
-    @Json(name = "data")
-    val `data`: Data?,
-    @Json(name = "etag")
+    @SerializedName("data")
+    val data: Data?,
+    @SerializedName("etag")
     val etag: String?,
-    @Json(name = "status")
+    @SerializedName("status")
     val status: String?
 )
 
-@JsonClass(generateAdapter = true)
 data class Data(
-    @Json(name = "count")
+    @SerializedName("count")
     val count: String?,
-    @Json(name = "limit")
+    @SerializedName("limit")
     val limit: String?,
-    @Json(name = "offset")
+    @SerializedName("offset")
     val offset: String?,
-    @Json(name = "results")
+    @SerializedName("results")
     val results: List<Result>?,
-    @Json(name = "total")
+    @SerializedName("total")
     val total: String?
 )
 
-@JsonClass(generateAdapter = true)
 data class Result(
-    @Json(name = "comics")
+    @SerializedName("comics")
     val comics: Collection?,
-    @Json(name = "description")
+    @SerializedName("description")
     val description: String?,
-    @Json(name = "events")
+    @SerializedName("events")
     val events: Collection?,
-    @Json(name = "id")
+    @SerializedName("id")
     val id: String?,
-    @Json(name = "modified")
+    @SerializedName("modified")
     val modified: String?,
-    @Json(name = "name")
+    @SerializedName("name")
     val name: String?,
-    @Json(name = "resourceURI")
-    val resourceURI: String?,
-    @Json(name = "series")
+    @SerializedName("resourceURI")
+    val resourceUri: String?,
+    @SerializedName("series")
     val series: Collection?,
-    @Json(name = "stories")
+    @SerializedName("stories")
     val stories: Collection?,
-    @Json(name = "thumbnail")
+    @SerializedName("thumbnail")
     val thumbnail: Thumbnail?,
-    @Json(name = "urls")
+    @SerializedName("urls")
     val urls: List<Url>?
 )
 
-@JsonClass(generateAdapter = true)
 data class Collection(
-    @Json(name = "available")
+    @SerializedName("available")
     val available: String?,
-    @Json(name = "collectionURI")
+    @SerializedName("collectionURI")
     val collectionURI: String?,
-    @Json(name = "items")
+    @SerializedName("items")
     val items: List<Item>?,
-    @Json(name = "returned")
+    @SerializedName("returned")
     val returned: String?
 )
 
-@JsonClass(generateAdapter = true)
 data class Thumbnail(
-    @Json(name = "extension")
+    @SerializedName("extension")
     val extension: String?,
-    @Json(name = "path")
+    @SerializedName("path")
     val path: String?
 )
 
-@JsonClass(generateAdapter = true)
 data class Url(
-    @Json(name = "type")
+    @SerializedName("type")
     val type: String?,
-    @Json(name = "url")
+    @SerializedName("url")
     val url: String?
 )
 
-@JsonClass(generateAdapter = true)
 data class Item(
-    @Json(name = "name")
+    @SerializedName("name")
     val name: String?,
-    @Json(name = "resourceURI")
+    @SerializedName("resourceURI")
     val resourceURI: String?,
-    @Json(name = "type")
+    @SerializedName("type")
     val type: String?
 )

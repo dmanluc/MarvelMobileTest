@@ -13,11 +13,15 @@ object AppDependencies {
 
     //Frameworks
     private val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    private val retrofitMoshiConverter =
-        "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
-    private val moshi = "com.squareup.moshi:moshi:$${Versions.moshi}"
-    private val moshiAnnotationProcessor =
-        "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
+    private val retrofitGsonConverter =
+        "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    private val gson = "com.google.code.gson:gson:${Versions.gson}"
+    private val coroutinesAndroid =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    private val koin = "org.koin:koin-android:${Versions.koin}"
+    private val koinViewModelAndroid = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+    private val httpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.httpLoggingInterceptor}"
+    private val arrowCore = "io.arrow-kt:arrow-core-data:${Versions.arrowCore}"
 
     //Testing
     private val junit = "junit:junit:${Versions.junit}"
@@ -31,8 +35,12 @@ object AppDependencies {
         add(constraintLayout)
         add(materialDesign)
         add(retrofit)
-        add(retrofitMoshiConverter)
-        add(moshi)
+        add(retrofitGsonConverter)
+        add(gson)
+        add(coroutinesAndroid)
+        add(koinViewModelAndroid)
+        add(httpLoggingInterceptor)
+        add(arrowCore)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {
@@ -44,9 +52,6 @@ object AppDependencies {
         add(junit)
     }
 
-    val kaptProcessorLibraries = arrayListOf<String>().apply {
-        add(moshiAnnotationProcessor)
-    }
 }
 
 fun DependencyHandler.kapt(list: List<String>) {
