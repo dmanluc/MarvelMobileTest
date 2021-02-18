@@ -18,12 +18,9 @@ import org.koin.dsl.module
  *
  */
 val repositoryModule: Module = module {
-    single { provideApiManager(get()) }
     single { provideRemoteDataSource(get(), get()) }
     single { provideCharactersRepository(get()) }
 }
-
-private fun provideApiManager(gson: Gson): ApiManager = ApiManager(gson)
 
 private fun provideRemoteDataSource(
     marvelApi: MarvelApi,

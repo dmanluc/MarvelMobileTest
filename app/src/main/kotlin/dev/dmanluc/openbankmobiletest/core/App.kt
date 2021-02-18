@@ -7,7 +7,6 @@ import dev.dmanluc.openbankmobiletest.di.repositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
 
 /**
  * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
@@ -22,15 +21,11 @@ class App : Application() {
 
     private fun setupKoinDi() {
         startKoin {
-            androidLogger(Level.DEBUG)
+            androidLogger()
             androidContext(this@App)
-            modules(
-                listOf(
-                    networkModule,
-                    repositoryModule,
-                    charactersModule
-                )
-            )
+
+            koin.loadModules(listOf(networkModule, repositoryModule, charactersModule))
+            koin.createRootScope()
         }
     }
 

@@ -8,6 +8,8 @@ object Versions {
     val appcompat = "1.2.0"
     val constraintLayout = "2.0.4"
     val materialDesign = "1.3.0"
+    val lifecycleExtensions = "2.2.0"
+    val lifecycleViewModel = "2.3.0"
 
     //Frameworks
     val retrofit = "2.9.0"

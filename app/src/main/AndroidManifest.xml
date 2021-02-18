@@ -11,13 +11,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpenbankMobileTest"
         tools:ignore="AllowBackup">
-        <activity android:name=".MainActivity">
+
+        <activity
+            android:name=".presentation.splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme"
+            tools:ignore="LockedOrientationActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity
+            android:name=".presentation.MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
     </application>
 
 </manifest>

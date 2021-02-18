@@ -10,6 +10,10 @@ object AppDependencies {
     private val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     private val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
+    private val lifecycleExtensions =
+        "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
+    private val lifecycleViewmModel =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleViewModel}"
 
     //Frameworks
     private val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
@@ -20,7 +24,8 @@ object AppDependencies {
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     private val koin = "org.koin:koin-android:${Versions.koin}"
     private val koinViewModelAndroid = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
-    private val httpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.httpLoggingInterceptor}"
+    private val httpLoggingInterceptor =
+        "com.squareup.okhttp3:logging-interceptor:${Versions.httpLoggingInterceptor}"
     private val arrowCore = "io.arrow-kt:arrow-core-data:${Versions.arrowCore}"
 
     //Testing
@@ -34,6 +39,8 @@ object AppDependencies {
         add(appcompat)
         add(constraintLayout)
         add(materialDesign)
+        add(lifecycleExtensions)
+        add(lifecycleViewmModel)
         add(retrofit)
         add(retrofitGsonConverter)
         add(gson)
