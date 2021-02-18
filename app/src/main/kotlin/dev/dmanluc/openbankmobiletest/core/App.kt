@@ -2,6 +2,7 @@ package dev.dmanluc.openbankmobiletest.core
 
 import android.app.Application
 import dev.dmanluc.openbankmobiletest.di.networkModule
+import dev.dmanluc.openbankmobiletest.di.repositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -24,7 +25,8 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 listOf(
-                    networkModule
+                    networkModule,
+                    repositoryModule
                 )
             )
         }
