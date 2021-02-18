@@ -2,6 +2,7 @@ package dev.dmanluc.openbankmobiletest.data.datasource
 
 import arrow.core.left
 import arrow.core.right
+import arrow.core.rightIfNotNull
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dev.dmanluc.openbankmobiletest.data.model.MarvelCharactersApiResponse
@@ -11,26 +12,27 @@ import java.io.IOException
 
 class ApiManager(private val gson: Gson) {
 
-    inline fun <ResultType, RequestType> performNetworkRequest(
+    inline fun <ResultType> performNetworkRequest(
         crossinline localDataQuery: () -> Flow<ResultType>,
-        crossinline fetch: suspend () -> RequestType,
-        crossinline saveFetchResult: suspend (RequestType) -> Unit,
-        crossinline shouldFetch: (ResultType) -> Boolean = { true }
+        crossinline fetchFromNetwork: suspend () -> ResultType,
+        crossinline saveFetchResult: suspend (ResultType) -> Unit,
+        crossinline shouldFetch: (ResultType) -> Boolean = { true },
     ) = flow {
-        val localData = localDataQuery().first()
+        val localData = localDataQuery().firstOrNull()
 
-        val flow = if (shouldFetch(localData)) {
-            try {
-                saveFetchResult(fetch())
-                localDataQuery().map { it.right() }
-            } catch (throwable: Throwable) {
-                localDataQuery().map { handleException(throwable).left() }
+        val resultAsFlow = flow {
+            if (localData == null || shouldFetch(localData)) {
+                val networkResult = fetchFromNetwork()
+                saveFetchResult(networkResult)
+                emit(networkResult.right())
+            } else {
+                emit(localData.right())
             }
-        } else {
-            localDataQuery().map { it.right() }
+        }.catch {
+            emit(handleException(it).left())
         }
 
-        emitAll(flow)
+        emitAll(resultAsFlow)
     }
 
     fun handleException(throwable: Throwable): ApiError {

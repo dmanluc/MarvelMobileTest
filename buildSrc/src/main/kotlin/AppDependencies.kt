@@ -10,10 +10,12 @@ object AppDependencies {
     private val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     private val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
-    private val lifecycleExtensions =
-        "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
-    private val lifecycleViewmModel =
-        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleViewModel}"
+    private val lifecycleKtx =
+        "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleKtx}"
+    private val viewModelKtx =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModelKtx}"
+    private val liveDataKtx =
+        "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.liveDataKtx}"
 
     //Frameworks
     private val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
@@ -39,8 +41,9 @@ object AppDependencies {
         add(appcompat)
         add(constraintLayout)
         add(materialDesign)
-        add(lifecycleExtensions)
-        add(lifecycleViewmModel)
+        add(lifecycleKtx)
+        add(viewModelKtx)
+        add(liveDataKtx)
         add(retrofit)
         add(retrofitGsonConverter)
         add(gson)

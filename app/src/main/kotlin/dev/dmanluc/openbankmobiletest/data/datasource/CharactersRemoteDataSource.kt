@@ -10,6 +10,9 @@ import kotlinx.coroutines.flow.Flow
  */
 interface CharactersRemoteDataSource {
 
-    suspend fun getCharacters(forceRefresh: Boolean): Flow<Either<ApiError, List<Character>>>
+    suspend fun getCharacters(
+        forceRefresh: Boolean,
+        offset: Int = 0
+    ): Flow<Either<ApiError, List<Character>>>
 
 }

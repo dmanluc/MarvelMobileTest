@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="dev.dmanluc.openbankmobiletest">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".core.App"
         android:icon="@mipmap/ic_launcher"
@@ -27,7 +30,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".presentation.MarvelActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
