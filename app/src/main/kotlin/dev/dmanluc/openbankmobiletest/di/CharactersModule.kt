@@ -1,7 +1,7 @@
 package dev.dmanluc.openbankmobiletest.di
 
 import dev.dmanluc.openbankmobiletest.domain.usecase.GetCharactersUseCase
-import dev.dmanluc.openbankmobiletest.presentation.characters.CharactersViewModel
+import dev.dmanluc.openbankmobiletest.presentation.characters.CharactersFragmentViewModel
 import dev.dmanluc.openbankmobiletest.utils.AppDispatchers
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -18,5 +18,5 @@ import org.koin.dsl.module
 val charactersModule: Module = module {
     factory { GetCharactersUseCase(get()) }
     single { AppDispatchers(Dispatchers.Main, Dispatchers.IO) }
-    viewModel { CharactersViewModel(get(), get()) }
+    viewModel { CharactersFragmentViewModel(get(), get()) }
 }

@@ -1,5 +1,13 @@
 package dev.dmanluc.openbankmobiletest.utils
 
+import android.view.LayoutInflater
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.viewbinding.ViewBinding
+import com.google.android.material.snackbar.Snackbar
 import java.security.MessageDigest
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -30,3 +38,43 @@ fun String.hashMd5(): String {
 }
 
 fun Boolean?.orFalse(): Boolean = this ?: false
+
+fun Fragment.showSnackbar(snackbarText: String, timeLength: Int) {
+    activity?.let {
+        Snackbar.make(it.findViewById(android.R.id.content), snackbarText, timeLength).show()
+    }
+}
+
+fun Fragment.setupSnackbarWithStringResId(
+    lifecycleOwner: LifecycleOwner,
+    snackbarEvent: LiveData<Event<Int>>,
+    timeLength: Int
+) {
+    snackbarEvent.observe(lifecycleOwner, { event ->
+        event.getContentIfNotHandled()?.let { res ->
+            context?.let { showSnackbar(it.getString(res), timeLength) }
+        }
+    })
+}
+
+fun Fragment.setupSnackbarWithStringLiteral(
+    lifecycleOwner: LifecycleOwner,
+    snackbarEvent: LiveData<Event<String>>,
+    timeLength: Int
+) {
+    snackbarEvent.observe(lifecycleOwner, { event ->
+        event.getContentIfNotHandled()?.let { literal ->
+            context?.let { showSnackbar(literal, timeLength) }
+        }
+    })
+}
+
+inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
+    crossinline bindingInflater: (LayoutInflater) -> T
+) =
+    lazy(LazyThreadSafetyMode.NONE) {
+        bindingInflater.invoke(layoutInflater)
+    }
+
+fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
+    FragmentViewBindingDelegate(this, viewBindingFactory)

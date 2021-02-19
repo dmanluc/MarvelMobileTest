@@ -9,8 +9,11 @@ object Versions {
     val constraintLayout = "2.0.4"
     val materialDesign = "1.3.0"
     val lifecycleKtx = "2.2.0"
+    val lifecycleJava8 = "2.3.0"
     val viewModelKtx = "2.3.0"
     val liveDataKtx = "2.3.0"
+    val navigationFragmentKtx = "2.3.0"
+    val navigationUiKtx = "2.3.0"
 
     //Frameworks
     val retrofit = "2.9.0"

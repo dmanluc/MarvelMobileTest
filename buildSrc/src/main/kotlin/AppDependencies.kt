@@ -12,10 +12,17 @@ object AppDependencies {
     private val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
     private val lifecycleKtx =
         "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleKtx}"
+    private val lifecycleJava8 =
+        "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycleJava8}"
+
     private val viewModelKtx =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModelKtx}"
     private val liveDataKtx =
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.liveDataKtx}"
+    private val navigationFragmentKtx =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationFragmentKtx}"
+    private val navigationUiKtx =
+        "androidx.navigation:navigation-ui-ktx:${Versions.navigationUiKtx}"
 
     //Frameworks
     private val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
@@ -42,8 +49,11 @@ object AppDependencies {
         add(constraintLayout)
         add(materialDesign)
         add(lifecycleKtx)
+        add(lifecycleJava8)
         add(viewModelKtx)
         add(liveDataKtx)
+        add(navigationFragmentKtx)
+        add(navigationUiKtx)
         add(retrofit)
         add(retrofitGsonConverter)
         add(gson)

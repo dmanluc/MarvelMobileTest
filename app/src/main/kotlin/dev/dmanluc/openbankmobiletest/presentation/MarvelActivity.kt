@@ -2,14 +2,21 @@ package dev.dmanluc.openbankmobiletest.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import dev.dmanluc.openbankmobiletest.R
-import dev.dmanluc.openbankmobiletest.presentation.characters.CharactersViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dev.dmanluc.openbankmobiletest.databinding.ActivityMainBinding
+import dev.dmanluc.openbankmobiletest.utils.viewBinding
 
 class MarvelActivity : AppCompatActivity() {
 
-    private val viewModel: CharactersViewModel by viewModel()
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private lateinit var navController: NavController
+
+    private val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +24,7 @@ class MarvelActivity : AppCompatActivity() {
     }
 
     private fun setupUi() {
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(false)
@@ -25,9 +32,12 @@ class MarvelActivity : AppCompatActivity() {
             show()
         }
 
-        viewModel.characterListLiveData.observe(this) {
-            println(it)
-        }
+        navController = findNavController(this, R.id.navHostFragment)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
+
+    override fun onSupportNavigateUp(): Boolean = navController.navigateUp()
 
 }
