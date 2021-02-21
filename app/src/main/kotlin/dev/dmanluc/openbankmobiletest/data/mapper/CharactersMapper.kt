@@ -1,15 +1,18 @@
 package dev.dmanluc.openbankmobiletest.data.mapper
 
-import dev.dmanluc.openbankmobiletest.data.datasource.CharactersRemoteDataSourceImpl
 import dev.dmanluc.openbankmobiletest.data.model.MarvelCharactersApiResponse
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.domain.model.SummaryItem
 import dev.dmanluc.openbankmobiletest.domain.model.SummaryList
 import dev.dmanluc.openbankmobiletest.domain.model.UrlItem
+import dev.dmanluc.openbankmobiletest.utils.enforceHttps
 import dev.dmanluc.openbankmobiletest.utils.fromUTCTimeToDate
 import java.util.*
 
+
 internal fun MarvelCharactersApiResponse.toDomainModel(): List<Character> {
+    val dotSymbol = "."
+
     return this.data?.results?.map { characterItem ->
         Character(
             id = characterItem.id.orEmpty(),
@@ -18,11 +21,8 @@ internal fun MarvelCharactersApiResponse.toDomainModel(): List<Character> {
             resourceURI = characterItem.resourceUri.orEmpty(),
             modifiedDate = characterItem.modified?.fromUTCTimeToDate() ?: Date(),
             thumbnail = characterItem.thumbnail?.let {
-                it.path + CharactersRemoteDataSourceImpl.IMAGE_MEDIUM_SIZE + CharactersRemoteDataSourceImpl.DOT + it.extension
-            }.orEmpty(),
-            picture = characterItem.thumbnail?.let {
-                it.path + CharactersRemoteDataSourceImpl.IMAGE_BIG_SIZE + CharactersRemoteDataSourceImpl.DOT + it.extension
-            }.orEmpty(),
+                it.path + dotSymbol + it.extension
+            }.enforceHttps().orEmpty(),
             urls = characterItem.urls?.map { urlItemResponse ->
                 UrlItem(
                     type = urlItemResponse.type.orEmpty(),

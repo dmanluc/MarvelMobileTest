@@ -16,12 +16,6 @@ class CharactersRemoteDataSourceImpl(
     private val apiManager: ApiManager,
 ) : CharactersRemoteDataSource {
 
-    companion object {
-        const val DOT = "."
-        const val IMAGE_MEDIUM_SIZE = "/standard_medium"
-        const val IMAGE_BIG_SIZE = "/landscape_xlarge"
-    }
-
     override suspend fun getCharacters(
         forceRefresh: Boolean,
         offset: Int

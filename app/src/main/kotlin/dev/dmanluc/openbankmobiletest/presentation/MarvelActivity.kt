@@ -3,7 +3,7 @@ package dev.dmanluc.openbankmobiletest.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import dev.dmanluc.openbankmobiletest.R
@@ -32,7 +32,9 @@ class MarvelActivity : AppCompatActivity() {
             show()
         }
 
-        navController = findNavController(this, R.id.navHostFragment)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
         setupActionBarWithNavController(this, navController, appBarConfiguration)

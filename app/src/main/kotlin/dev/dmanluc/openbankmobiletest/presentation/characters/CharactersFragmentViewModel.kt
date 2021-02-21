@@ -17,13 +17,19 @@ class CharactersFragmentViewModel(
     val characterListLiveData: LiveData<List<Character>> get() = mutableCharacterListLiveData
 
     init {
+        loadCharacters()
+    }
+
+    fun loadCharacters(forceRefresh: Boolean = false) {
         viewModelScope.launch(appDispatchers.io) {
-            getCharactersUseCase().collect { value ->
+            getCharactersUseCase(forceRefresh).collect { value ->
                 value.fold(ifLeft = {}) { characterList ->
                     mutableCharacterListLiveData.postValue(characterList)
                 }
             }
         }
     }
+
+
 
 }

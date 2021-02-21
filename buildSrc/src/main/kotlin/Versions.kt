@@ -22,6 +22,7 @@ object Versions {
     val koin = "2.1.5"
     val httpLoggingInterceptor = "4.8.0"
     val arrowCore = "0.10.5"
+    val glide = "4.11.0"
 
     // Testing
     val junit = "4.13.1"

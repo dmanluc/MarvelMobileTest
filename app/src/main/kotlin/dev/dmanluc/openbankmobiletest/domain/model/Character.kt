@@ -13,7 +13,6 @@ data class Character(
     val resourceURI: String,
     val thumbnail: String,
     val urls: List<UrlItem>?,
-    val picture: String,
     val comicsSummary: SummaryList,
     val seriesSummary: SummaryList,
     val storiesSummary: SummaryList,

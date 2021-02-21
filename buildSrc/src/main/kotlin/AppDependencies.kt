@@ -36,6 +36,8 @@ object AppDependencies {
     private val httpLoggingInterceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.httpLoggingInterceptor}"
     private val arrowCore = "io.arrow-kt:arrow-core-data:${Versions.arrowCore}"
+    private val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+    private val glideCompilerKapt = "com.github.bumptech.glide:compiler:${Versions.glide}"
 
     //Testing
     private val junit = "junit:junit:${Versions.junit}"
@@ -61,6 +63,7 @@ object AppDependencies {
         add(koinViewModelAndroid)
         add(httpLoggingInterceptor)
         add(arrowCore)
+        add(glide)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {
@@ -70,6 +73,10 @@ object AppDependencies {
 
     val testLibraries = arrayListOf<String>().apply {
         add(junit)
+    }
+
+    val kaptLibraries = arrayListOf<String>().apply {
+        add(glideCompilerKapt)
     }
 
 }

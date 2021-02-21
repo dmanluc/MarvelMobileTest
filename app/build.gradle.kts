@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("kotlin-parcelize")
+    kotlin("kapt")
 }
 
 android {
@@ -69,6 +70,7 @@ android {
 
 dependencies {
     implementation(AppDependencies.appLibraries)
+    kapt(AppDependencies.kaptLibraries)
     testImplementation(AppDependencies.testLibraries)
     androidTestImplementation(AppDependencies.androidTestLibraries)
 }
