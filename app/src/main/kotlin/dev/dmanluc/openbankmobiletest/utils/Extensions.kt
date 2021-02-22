@@ -119,7 +119,7 @@ fun ImageView.loadImage(
             return false
         }
     })
-        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .signature(ObjectKey(with(System.currentTimeMillis()) {
             if (daysWhileValidCache > 0) {
                 (this / (daysWhileValidCache * 24 * 60 * 60 * 1000)).toString()
@@ -127,7 +127,7 @@ fun ImageView.loadImage(
                 this.toString()
             }
         }))
-        .error(errorResource).transition(DrawableTransitionOptions().crossFade()).into(this)
+        .error(errorResource).transition(DrawableTransitionOptions().crossFade(500)).into(this)
 }
 
 fun String?.enforceHttps(): String? =

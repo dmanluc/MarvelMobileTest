@@ -3,6 +3,7 @@ package dev.dmanluc.openbankmobiletest.domain.usecase
 import arrow.core.Either
 import dev.dmanluc.openbankmobiletest.data.datasource.ApiError
 import dev.dmanluc.openbankmobiletest.domain.model.Character
+import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTracker
 import dev.dmanluc.openbankmobiletest.domain.repository.MarvelCharactersRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -16,8 +17,8 @@ and save them to database. If saved, return them from database.
  */
 class GetCharactersUseCase(private val repository: MarvelCharactersRepository) {
 
-    suspend operator fun invoke(forceRefresh: Boolean = false): Flow<Either<ApiError, List<Character>>> {
-        return repository.getCharacters(forceRefresh)
+    suspend operator fun invoke(pagingLoadTracker: PagingLoadTracker): Flow<Either<ApiError, List<Character>>> {
+        return repository.getCharacters(pagingLoadTracker)
     }
 
 }

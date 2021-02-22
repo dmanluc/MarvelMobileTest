@@ -14,6 +14,7 @@ object Versions {
     val liveDataKtx = "2.3.0"
     val navigationFragmentKtx = "2.3.0"
     val navigationUiKtx = "2.3.0"
+    val room = "2.2.6"
 
     //Frameworks
     val retrofit = "2.9.0"
@@ -23,6 +24,7 @@ object Versions {
     val httpLoggingInterceptor = "4.8.0"
     val arrowCore = "0.10.5"
     val glide = "4.11.0"
+    val lottie = "3.6.1"
 
     // Testing
     val junit = "4.13.1"

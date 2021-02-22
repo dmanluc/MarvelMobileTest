@@ -23,6 +23,9 @@ object AppDependencies {
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigationFragmentKtx}"
     private val navigationUiKtx =
         "androidx.navigation:navigation-ui-ktx:${Versions.navigationUiKtx}"
+    private val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+    private val roomKapt = "androidx.room:room-compiler:${Versions.room}"
+    private val roomKtx = "androidx.room:room-ktx:${Versions.room}"
 
     //Frameworks
     private val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
@@ -38,6 +41,7 @@ object AppDependencies {
     private val arrowCore = "io.arrow-kt:arrow-core-data:${Versions.arrowCore}"
     private val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     private val glideCompilerKapt = "com.github.bumptech.glide:compiler:${Versions.glide}"
+    private val lottie = "com.airbnb.android:lottie:${Versions.lottie}"
 
     //Testing
     private val junit = "junit:junit:${Versions.junit}"
@@ -56,6 +60,8 @@ object AppDependencies {
         add(liveDataKtx)
         add(navigationFragmentKtx)
         add(navigationUiKtx)
+        add(roomRuntime)
+        add(roomKtx)
         add(retrofit)
         add(retrofitGsonConverter)
         add(gson)
@@ -64,6 +70,7 @@ object AppDependencies {
         add(httpLoggingInterceptor)
         add(arrowCore)
         add(glide)
+        add(lottie)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {
@@ -76,6 +83,7 @@ object AppDependencies {
     }
 
     val kaptLibraries = arrayListOf<String>().apply {
+        add(roomKapt)
         add(glideCompilerKapt)
     }
 
