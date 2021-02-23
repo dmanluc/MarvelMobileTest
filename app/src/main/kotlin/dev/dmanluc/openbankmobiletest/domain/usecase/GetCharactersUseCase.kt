@@ -1,7 +1,7 @@
 package dev.dmanluc.openbankmobiletest.domain.usecase
 
 import arrow.core.Either
-import dev.dmanluc.openbankmobiletest.data.datasource.ApiError
+import dev.dmanluc.openbankmobiletest.data.remote.datasource.ApiError
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTracker
 import dev.dmanluc.openbankmobiletest.domain.repository.MarvelCharactersRepository

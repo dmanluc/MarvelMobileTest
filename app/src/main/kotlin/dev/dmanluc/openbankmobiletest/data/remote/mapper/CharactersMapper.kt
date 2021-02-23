@@ -1,6 +1,6 @@
-package dev.dmanluc.openbankmobiletest.data.mapper
+package dev.dmanluc.openbankmobiletest.data.remote.mapper
 
-import dev.dmanluc.openbankmobiletest.data.model.MarvelCharactersApiResponse
+import dev.dmanluc.openbankmobiletest.data.remote.model.MarvelCharactersApiResponse
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.domain.model.SummaryItem
 import dev.dmanluc.openbankmobiletest.domain.model.SummaryList

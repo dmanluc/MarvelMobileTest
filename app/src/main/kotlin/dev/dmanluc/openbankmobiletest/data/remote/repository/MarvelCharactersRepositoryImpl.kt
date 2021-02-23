@@ -1,8 +1,8 @@
-package dev.dmanluc.openbankmobiletest.data.repository
+package dev.dmanluc.openbankmobiletest.data.remote.repository
 
 import arrow.core.Either
-import dev.dmanluc.openbankmobiletest.data.datasource.ApiError
-import dev.dmanluc.openbankmobiletest.data.datasource.CharactersRemoteDataSource
+import dev.dmanluc.openbankmobiletest.data.remote.datasource.ApiError
+import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSource
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTracker
 import dev.dmanluc.openbankmobiletest.domain.repository.MarvelCharactersRepository

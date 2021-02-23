@@ -1,11 +1,10 @@
 package dev.dmanluc.openbankmobiletest.di
 
-import com.google.gson.Gson
-import dev.dmanluc.openbankmobiletest.data.api.MarvelApi
-import dev.dmanluc.openbankmobiletest.data.datasource.ApiManager
-import dev.dmanluc.openbankmobiletest.data.datasource.CharactersRemoteDataSource
-import dev.dmanluc.openbankmobiletest.data.datasource.CharactersRemoteDataSourceImpl
-import dev.dmanluc.openbankmobiletest.data.repository.MarvelCharactersRepositoryImpl
+import dev.dmanluc.openbankmobiletest.data.remote.api.MarvelApi
+import dev.dmanluc.openbankmobiletest.data.remote.datasource.ApiManager
+import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSource
+import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSourceImpl
+import dev.dmanluc.openbankmobiletest.data.remote.repository.MarvelCharactersRepositoryImpl
 import dev.dmanluc.openbankmobiletest.domain.repository.MarvelCharactersRepository
 import org.koin.core.module.Module
 import org.koin.dsl.module

@@ -1,12 +1,11 @@
-package dev.dmanluc.openbankmobiletest.data.datasource
+package dev.dmanluc.openbankmobiletest.data.remote.datasource
 
 import arrow.core.Either
 import dev.dmanluc.openbankmobiletest.BuildConfig
-import dev.dmanluc.openbankmobiletest.data.api.MarvelApi
-import dev.dmanluc.openbankmobiletest.data.mapper.toDomainModel
+import dev.dmanluc.openbankmobiletest.data.remote.api.MarvelApi
+import dev.dmanluc.openbankmobiletest.data.remote.mapper.toDomainModel
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTracker
-import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTrackerImpl
 import dev.dmanluc.openbankmobiletest.utils.hashMd5
 import dev.dmanluc.openbankmobiletest.utils.orFalse
 import kotlinx.coroutines.flow.Flow

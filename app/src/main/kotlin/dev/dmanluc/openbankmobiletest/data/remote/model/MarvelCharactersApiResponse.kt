@@ -1,4 +1,4 @@
-package dev.dmanluc.openbankmobiletest.data.model
+package dev.dmanluc.openbankmobiletest.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 

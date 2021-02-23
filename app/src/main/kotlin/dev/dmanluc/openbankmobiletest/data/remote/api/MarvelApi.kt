@@ -1,6 +1,6 @@
-package dev.dmanluc.openbankmobiletest.data.api
+package dev.dmanluc.openbankmobiletest.data.remote.api
 
-import dev.dmanluc.openbankmobiletest.data.model.MarvelCharactersApiResponse
+import dev.dmanluc.openbankmobiletest.data.remote.model.MarvelCharactersApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -1,11 +1,10 @@
-package dev.dmanluc.openbankmobiletest.data.datasource
+package dev.dmanluc.openbankmobiletest.data.remote.datasource
 
 import arrow.core.left
 import arrow.core.right
-import arrow.core.rightIfNotNull
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dev.dmanluc.openbankmobiletest.data.model.MarvelCharactersApiResponse
+import dev.dmanluc.openbankmobiletest.data.remote.model.MarvelCharactersApiResponse
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
 import java.io.IOException

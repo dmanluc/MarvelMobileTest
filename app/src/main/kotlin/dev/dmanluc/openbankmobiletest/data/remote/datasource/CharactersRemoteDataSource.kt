@@ -1,4 +1,4 @@
-package dev.dmanluc.openbankmobiletest.data.datasource
+package dev.dmanluc.openbankmobiletest.data.remote.datasource
 
 import arrow.core.Either
 import dev.dmanluc.openbankmobiletest.domain.model.Character

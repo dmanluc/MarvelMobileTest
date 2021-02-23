@@ -3,8 +3,8 @@ package dev.dmanluc.openbankmobiletest.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dev.dmanluc.openbankmobiletest.BuildConfig
-import dev.dmanluc.openbankmobiletest.data.api.MarvelApi
-import dev.dmanluc.openbankmobiletest.data.datasource.ApiManager
+import dev.dmanluc.openbankmobiletest.data.remote.api.MarvelApi
+import dev.dmanluc.openbankmobiletest.data.remote.datasource.ApiManager
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
