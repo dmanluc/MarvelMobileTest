@@ -1,27 +1,30 @@
-package dev.dmanluc.openbankmobiletest.data.remote.datasource
+package dev.dmanluc.openbankmobiletest.data.repository
 
 import arrow.core.left
 import arrow.core.right
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dev.dmanluc.openbankmobiletest.data.remote.model.MarvelCharactersApiResponse
+import dev.dmanluc.openbankmobiletest.domain.model.ApiError
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
 import java.io.IOException
 
-class ApiManager(private val gson: Gson) {
+class CharactersDataSourceManager(
+    private val gson: Gson
+) {
 
-    inline fun <ResultType> performNetworkRequest(
-        crossinline localDataQuery: () -> Flow<ResultType>,
-        crossinline fetchFromNetwork: suspend () -> ResultType,
+    inline fun <ResultType> performDataRequest(
+        crossinline localDataQuery: suspend () -> ResultType,
+        crossinline fetchFromRemoteSource: suspend () -> ResultType,
         crossinline saveFetchResult: suspend (ResultType) -> Unit,
         crossinline shouldFetch: (ResultType) -> Boolean = { true },
     ) = flow {
-        val localData = localDataQuery().firstOrNull()
+        val localData = localDataQuery()
 
         val resultAsFlow = flow {
             if (localData == null || shouldFetch(localData)) {
-                val networkResult = fetchFromNetwork()
+                val networkResult = fetchFromRemoteSource()
                 saveFetchResult(networkResult)
                 emit(networkResult.right())
             } else {

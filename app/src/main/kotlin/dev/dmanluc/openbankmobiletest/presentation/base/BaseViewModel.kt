@@ -15,10 +15,10 @@ import dev.dmanluc.openbankmobiletest.utils.Event
  */
 abstract class BaseViewModel : ViewModel() {
 
-    private val _snackbarErrorWithStringResId: MutableLiveData<Event<Int>> = MutableLiveData()
+    protected val _snackbarErrorWithStringResId: MutableLiveData<Event<Int>> = MutableLiveData()
     val snackbarErrorWithStringResId: LiveData<Event<Int>> get() = _snackbarErrorWithStringResId
 
-    private val _snackbarErrorWithStringLiteral: MutableLiveData<Event<String>> = MutableLiveData()
+    protected val _snackbarErrorWithStringLiteral: MutableLiveData<Event<String>> = MutableLiveData()
     val snackbarErrorWithStringLiteral: LiveData<Event<String>> get() = _snackbarErrorWithStringLiteral
 
     private val _navigation = MutableLiveData<Event<NavigationCommand>>()

@@ -1,7 +1,7 @@
 package dev.dmanluc.openbankmobiletest.data.remote.datasource
 
-import arrow.core.Either
 import dev.dmanluc.openbankmobiletest.BuildConfig
+import dev.dmanluc.openbankmobiletest.data.local.toDatabaseEntity
 import dev.dmanluc.openbankmobiletest.data.remote.api.MarvelApi
 import dev.dmanluc.openbankmobiletest.data.remote.mapper.toDomainModel
 import dev.dmanluc.openbankmobiletest.domain.model.Character
@@ -14,22 +14,12 @@ import java.util.*
 
 class CharactersRemoteDataSourceImpl(
     private val marvelApi: MarvelApi,
-    private val apiManager: ApiManager,
 ) : CharactersRemoteDataSource {
 
     override suspend fun getCharacters(
         pagingLoadTracker: PagingLoadTracker
-    ): Flow<Either<ApiError, List<Character>>> {
-        return apiManager.performNetworkRequest(
-            localDataQuery = { performDatabaseLoadQuery(pagingLoadTracker) },
-            fetchFromNetwork = { performNetworkApiCall(pagingLoadTracker) },
-            saveFetchResult = ::performDatabaseSaveApiResult,
-            shouldFetch = ::checkApiFetching,
-        )
-    }
-
-    private fun performDatabaseLoadQuery(pagingLoadTracker: PagingLoadTracker): Flow<List<Character>> {
-        return flow { listOf<Character>() }
+    ): List<Character> {
+        return performNetworkApiCall(pagingLoadTracker)
     }
 
     private suspend fun performNetworkApiCall(pagingLoadTracker: PagingLoadTracker): List<Character> {
@@ -40,14 +30,6 @@ class CharactersRemoteDataSourceImpl(
         val pagingOffset = pagingLoadTracker.getPagingStatus().pagingOffset
 
         return marvelApi.getCharacters(apiKey, timestamp, hash, pagingOffset).toDomainModel()
-    }
-
-    private suspend fun performDatabaseSaveApiResult(characters: List<Character>) {
-
-    }
-
-    private fun checkApiFetching(savedCharactersFromDb: List<Character>?): Boolean {
-        return savedCharactersFromDb?.isEmpty().orFalse()
     }
 
 }

@@ -1,4 +1,4 @@
-package dev.dmanluc.openbankmobiletest.data.remote.datasource
+package dev.dmanluc.openbankmobiletest.domain.model
 
 sealed class ApiError {
     data class HttpError(val code: Int, val body: String) : ApiError()

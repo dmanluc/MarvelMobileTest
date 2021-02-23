@@ -1,10 +1,13 @@
 package dev.dmanluc.openbankmobiletest.di
 
+import dev.dmanluc.openbankmobiletest.data.local.dao.CharactersDao
+import dev.dmanluc.openbankmobiletest.data.local.datasource.CharactersLocalDataSource
+import dev.dmanluc.openbankmobiletest.data.local.datasource.CharactersLocalDataSourceImpl
 import dev.dmanluc.openbankmobiletest.data.remote.api.MarvelApi
-import dev.dmanluc.openbankmobiletest.data.remote.datasource.ApiManager
 import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSource
 import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSourceImpl
-import dev.dmanluc.openbankmobiletest.data.remote.repository.MarvelCharactersRepositoryImpl
+import dev.dmanluc.openbankmobiletest.data.repository.CharactersDataSourceManager
+import dev.dmanluc.openbankmobiletest.data.repository.MarvelCharactersRepositoryImpl
 import dev.dmanluc.openbankmobiletest.domain.repository.MarvelCharactersRepository
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -17,14 +20,23 @@ import org.koin.dsl.module
  *
  */
 val repositoryModule: Module = module {
-    single { provideRemoteDataSource(get(), get()) }
-    single { provideCharactersRepository(get()) }
+    factory { CharactersDataSourceManager(get()) }
+    factory { provideLocalDataSource(get()) }
+    factory { provideRemoteDataSource(get()) }
+    factory { provideCharactersRepository(get(), get(), get()) }
 }
+
+private fun provideLocalDataSource(
+    charactersDao: CharactersDao
+): CharactersLocalDataSource = CharactersLocalDataSourceImpl(charactersDao)
 
 private fun provideRemoteDataSource(
     marvelApi: MarvelApi,
-    apiManager: ApiManager
-): CharactersRemoteDataSource = CharactersRemoteDataSourceImpl(marvelApi, apiManager)
+): CharactersRemoteDataSource = CharactersRemoteDataSourceImpl(marvelApi)
 
-private fun provideCharactersRepository(remoteDataSource: CharactersRemoteDataSource): MarvelCharactersRepository =
-    MarvelCharactersRepositoryImpl(remoteDataSource)
+private fun provideCharactersRepository(
+    localDataSource: CharactersLocalDataSource,
+    remoteDataSource: CharactersRemoteDataSource,
+    charactersDataSourceManager: CharactersDataSourceManager
+): MarvelCharactersRepository =
+    MarvelCharactersRepositoryImpl(localDataSource, remoteDataSource, charactersDataSourceManager)

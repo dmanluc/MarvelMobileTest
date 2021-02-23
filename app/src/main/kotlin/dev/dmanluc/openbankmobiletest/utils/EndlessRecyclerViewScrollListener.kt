@@ -93,10 +93,8 @@ class EndlessRecyclerViewScrollListener(
     }
 
     // Call this method whenever performing new searches
-    fun resetState() {
-        currentPage = startingPageIndex
-        previousTotalItemCount = 0
-        loading = true
+    fun resetOnSearchError() {
+        loading = false
     }
 
 }
