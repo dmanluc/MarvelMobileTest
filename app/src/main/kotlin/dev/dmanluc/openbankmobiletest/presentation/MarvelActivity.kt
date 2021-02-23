@@ -32,9 +32,8 @@ class MarvelActivity : AppCompatActivity() {
             show()
         }
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
         setupActionBarWithNavController(this, navController, appBarConfiguration)

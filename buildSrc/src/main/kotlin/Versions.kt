@@ -15,6 +15,7 @@ object Versions {
     val navigationFragmentKtx = "2.3.0"
     val navigationUiKtx = "2.3.0"
     val room = "2.2.6"
+    val navigationSafeArgs = "2.3.3"
 
     //Frameworks
     val retrofit = "2.9.0"

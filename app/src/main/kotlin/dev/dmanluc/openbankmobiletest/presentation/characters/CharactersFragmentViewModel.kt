@@ -34,6 +34,8 @@ class CharactersFragmentViewModel(
         }
     }
 
-
+    fun goToCharacterDetail(selectedCharacter: Character) {
+        navigate(CharactersFragmentDirections.actionToCharacterDetail(selectedCharacter))
+    }
 
 }

@@ -25,7 +25,9 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
     private val binding by viewBinding(FragmentCharacterListBinding::bind)
 
     private val charactersAdapter by lazy {
-        CharactersPagingAdapter({})
+        CharactersPagingAdapter { selectedCharacter ->
+            viewModel.goToCharacterDetail(selectedCharacter)
+        }
     }
 
     override fun getViewModel(): BaseViewModel = viewModel

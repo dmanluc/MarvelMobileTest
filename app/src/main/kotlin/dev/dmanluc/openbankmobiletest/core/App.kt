@@ -1,6 +1,7 @@
 package dev.dmanluc.openbankmobiletest.core
 
 import android.app.Application
+import dev.dmanluc.openbankmobiletest.di.characterDetailModule
 import dev.dmanluc.openbankmobiletest.di.charactersModule
 import dev.dmanluc.openbankmobiletest.di.networkModule
 import dev.dmanluc.openbankmobiletest.di.repositoryModule
@@ -24,7 +25,14 @@ class App : Application() {
             androidLogger()
             androidContext(this@App)
 
-            koin.loadModules(listOf(networkModule, repositoryModule, charactersModule))
+            koin.loadModules(
+                listOf(
+                    networkModule,
+                    repositoryModule,
+                    charactersModule,
+                    characterDetailModule
+                )
+            )
             koin.createRootScope()
         }
     }
