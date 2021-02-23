@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.signature.ObjectKey
 import com.google.android.material.snackbar.Snackbar
+import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.core.GlideApp
 import java.security.MessageDigest
 import java.text.ParseException
@@ -91,7 +92,7 @@ fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
 
 fun ImageView.loadImage(
     path: String,
-    errorResource: Int,
+    errorResource: Int = R.drawable.ic_broken_image_black_24dp,
     onExceptionDelegate: () -> Unit = {},
     onResourceReadyDelegate: () -> Unit = {},
     daysWhileValidCache: Int = 1

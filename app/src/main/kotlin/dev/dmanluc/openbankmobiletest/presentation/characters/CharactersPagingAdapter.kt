@@ -1,6 +1,7 @@
 package dev.dmanluc.openbankmobiletest.presentation.characters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTracker
  *
  */
 class CharactersPagingAdapter(
-    private val onClickCharacterAction: ((Character) -> Unit)
+    private val onClickCharacterAction: ((View, Character) -> Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items: MutableList<PagingAdapterItem<*>> = mutableListOf()
