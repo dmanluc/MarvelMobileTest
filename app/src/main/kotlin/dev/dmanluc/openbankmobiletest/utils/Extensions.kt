@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -78,6 +79,14 @@ fun Fragment.setupSnackbarWithStringLiteral(
             context?.let { showSnackbar(literal, timeLength) }
         }
     })
+}
+
+@MainThread
+inline fun <T> LiveData<Event<T>>.observeEvent(
+    owner: LifecycleOwner,
+    crossinline onEventUnhandledContent: (T) -> Unit
+) {
+    observe(owner, { it?.getContentIfNotHandled()?.let(onEventUnhandledContent) })
 }
 
 inline fun <T : ViewBinding> AppCompatActivity.viewBinding(

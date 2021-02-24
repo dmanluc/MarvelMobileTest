@@ -18,8 +18,8 @@ class CharactersFragmentViewModel(
     private val appDispatchers: AppDispatchers
 ) : BaseViewModel() {
 
-    private val mutablePagingLoadTrackingStateLiveData = MutableLiveData<PagingLoadTrackingState>()
-    val pagingLoadTrackingStateLiveData: LiveData<PagingLoadTrackingState> get() = mutablePagingLoadTrackingStateLiveData
+    private val mutablePagingLoadTrackingStateLiveData by lazy { MutableLiveData<Event<PagingLoadTrackingState>>() }
+    val pagingLoadTrackingStateLiveData: LiveData<Event<PagingLoadTrackingState>> get() = mutablePagingLoadTrackingStateLiveData
 
     init {
         loadCharacters()
@@ -39,20 +39,24 @@ class CharactersFragmentViewModel(
         when {
             pagingOffset == 0 -> {
                 mutablePagingLoadTrackingStateLiveData.postValue(
-                    PagingLoadTrackingState.Refresh(
-                        characters
+                    Event(
+                        PagingLoadTrackingState.Refresh(
+                            characters
+                        )
                     )
                 )
             }
             characters.isNotEmpty() -> {
                 mutablePagingLoadTrackingStateLiveData.postValue(
-                    PagingLoadTrackingState.Append(
-                        characters
+                    Event(
+                        PagingLoadTrackingState.Append(
+                            characters
+                        )
                     )
                 )
             }
             else -> {
-                mutablePagingLoadTrackingStateLiveData.postValue(PagingLoadTrackingState.EndOfPagination)
+                mutablePagingLoadTrackingStateLiveData.postValue(Event(PagingLoadTrackingState.EndOfPagination))
             }
         }
     }

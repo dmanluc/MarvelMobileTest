@@ -14,6 +14,7 @@ import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.presentation.base.BaseFragment
 import dev.dmanluc.openbankmobiletest.presentation.base.BaseViewModel
 import dev.dmanluc.openbankmobiletest.utils.EndlessRecyclerViewScrollListener
+import dev.dmanluc.openbankmobiletest.utils.observeEvent
 import dev.dmanluc.openbankmobiletest.utils.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,6 +33,12 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
 
     private val charactersAdapter by lazy {
         CharactersPagingAdapter(onClickCharacterAction = ::onCharacterClicked)
+    }
+
+    private val endlessRecyclerViewScrollListener by lazy {
+        EndlessRecyclerViewScrollListener { _: Int, totalItemsCount: Int, _: RecyclerView ->
+            onScrollEndAction(totalItemsCount)
+        }
     }
 
     private fun onCharacterClicked(view: View, selectedCharacter: Character) {
@@ -53,8 +60,8 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
 
     override fun getViewModel(): BaseViewModel = viewModel
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         postponeEnterTransition()
         binding.characterRecyclerList.doOnPreDraw { startPostponedEnterTransition() }
@@ -67,9 +74,7 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
         binding.characterRecyclerList.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = charactersAdapter
-            addOnScrollListener(EndlessRecyclerViewScrollListener { _: Int, totalItemsCount: Int, _: RecyclerView ->
-                onScrollEndAction(totalItemsCount)
-            })
+            addOnScrollListener(endlessRecyclerViewScrollListener)
         }
     }
 
@@ -79,7 +84,7 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
     }
 
     private fun setupUi() {
-        viewModel.pagingLoadTrackingStateLiveData.observe(viewLifecycleOwner) { pagingState ->
+        viewModel.pagingLoadTrackingStateLiveData.observeEvent(viewLifecycleOwner) { pagingState ->
             charactersAdapter.setAdapterItems(pagingState)
         }
     }
