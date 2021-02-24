@@ -1,11 +1,13 @@
 package dev.dmanluc.openbankmobiletest.presentation.characterdetail
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialContainerTransform
 import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.databinding.FragmentCharacterDetailBinding
-import dev.dmanluc.openbankmobiletest.databinding.FragmentCharacterListBinding
+import dev.dmanluc.openbankmobiletest.domain.model.Character
+import dev.dmanluc.openbankmobiletest.presentation.MarvelActivity
 import dev.dmanluc.openbankmobiletest.presentation.base.BaseFragment
 import dev.dmanluc.openbankmobiletest.presentation.base.BaseViewModel
 import dev.dmanluc.openbankmobiletest.utils.loadImage
@@ -29,26 +31,38 @@ class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail)
 
     override fun getViewModel(): BaseViewModel = viewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.navHostFragment
             duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-            isElevationShadowEnabled = true
+            scrimColor = Color.TRANSPARENT
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        postponeEnterTransition()
 
         setupUi()
     }
 
     private fun setupUi() {
         val characterSelected = args.character
-        binding.detailContainer.transitionName = characterSelected.thumbnail
-        binding.characterDetailImage.loadImage(characterSelected.thumbnail)
+
+        showCharacterInfo(characterSelected)
+    }
+
+    private fun showCharacterInfo(character: Character) {
+        with(binding) {
+            characterDetailImage.transitionName = character.thumbnail
+            characterDetailImage.loadImage(character.thumbnail,
+                onResourceReadyDelegate = { startPostponedEnterTransition() },
+                onExceptionDelegate = { startPostponedEnterTransition() })
+
+            characterDetailDescription.text = character.description
+            characterDetailComicsNumber.text = character.comicsSummary.available.toString()
+            characterDetailSeriesNumber.text = character.seriesSummary.available.toString()
+            characterDetailEventsNumber.text = character.eventsSummary.available.toString()
+            characterDetailStoriesNumber.text = character.storiesSummary.available.toString()
+        }
     }
 
 }

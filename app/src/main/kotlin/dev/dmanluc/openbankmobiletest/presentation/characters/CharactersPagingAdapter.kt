@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.dmanluc.openbankmobiletest.databinding.ItemCharacterListBinding
 import dev.dmanluc.openbankmobiletest.databinding.ItemLoadingCharactersBinding
 import dev.dmanluc.openbankmobiletest.domain.model.Character
-import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadStatus
-import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTracker
+import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTrackingState
 
 /**
  * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
@@ -84,29 +83,48 @@ class CharactersPagingAdapter(
         }
     }
 
-    fun setAdapterItems(characters: List<Character>, pagingLoadTracker: PagingLoadTracker) {
+    fun setAdapterItems(state: PagingLoadTrackingState) {
         val oldItems = items.toList()
 
-        when (pagingLoadTracker.getPagingStatus()) {
-            is PagingLoadStatus.Append -> {
-                items.addAll(characters.map { CharactersPagingAdapterContentItem(it) })
+        when (state) {
+            is PagingLoadTrackingState.Append -> {
+                appendCharacters(state.characters)
             }
-            PagingLoadStatus.Refresh -> {
-                items.apply {
-                    clear()
-                    addAll(characters.map { CharactersPagingAdapterContentItem(it) })
-                }
+            is PagingLoadTrackingState.Refresh -> {
+                refreshCharacters(state.characters)
+            }
+            is PagingLoadTrackingState.EndOfPagination -> {
+                removePagingLoading(oldItems.size - 1)
+                return
             }
         }
+    }
+
+    private fun appendCharacters(characters: List<Character>) {
+        val oldItems = items.toList()
+
+        items.addAll(characters.map { CharactersPagingAdapterContentItem(it) })
 
         val diffCallback = PagingAdapterDiffUtils(oldItems, items, characterComparator)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
 
         diffResult.dispatchUpdatesTo(this)
 
-        if (pagingLoadTracker.getPagingStatus().pagingOffset > 0) {
-            removePagingLoading(oldItems.size - 1)
+        removePagingLoading(oldItems.size - 1)
+    }
+
+    private fun refreshCharacters(characters: List<Character>) {
+        val oldItems = items.toList()
+
+        items.apply {
+            clear()
+            addAll(characters.map { CharactersPagingAdapterContentItem(it) })
         }
+
+        val diffCallback = PagingAdapterDiffUtils(oldItems, items, characterComparator)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        diffResult.dispatchUpdatesTo(this)
     }
 
     private fun removePagingLoading(position: Int) {

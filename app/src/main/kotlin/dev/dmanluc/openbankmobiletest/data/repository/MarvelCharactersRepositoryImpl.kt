@@ -5,7 +5,6 @@ import dev.dmanluc.openbankmobiletest.data.local.datasource.CharactersLocalDataS
 import dev.dmanluc.openbankmobiletest.domain.model.ApiError
 import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSource
 import dev.dmanluc.openbankmobiletest.domain.model.Character
-import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTracker
 import dev.dmanluc.openbankmobiletest.domain.repository.MarvelCharactersRepository
 import dev.dmanluc.openbankmobiletest.utils.orFalse
 import kotlinx.coroutines.flow.Flow
@@ -16,23 +15,21 @@ class MarvelCharactersRepositoryImpl(
     private val dataSourceManager: CharactersDataSourceManager
 ) : MarvelCharactersRepository {
 
-    override suspend fun getCharacters(
-        pagingLoadTracker: PagingLoadTracker
-    ): Flow<Either<ApiError, List<Character>>> {
+    override suspend fun getCharacters(pagingOffset: Int): Flow<Either<ApiError, List<Character>>> {
         return dataSourceManager.performDataRequest(
-            localDataQuery = { loadCharactersFromLocal(pagingLoadTracker) },
-            fetchFromRemoteSource = { fetchCharactersFromRemote(pagingLoadTracker) },
+            localDataQuery = { loadCharactersFromLocal(pagingOffset) },
+            fetchFromRemoteSource = { fetchCharactersFromRemote(pagingOffset) },
             saveFetchResult = ::saveRemoteDataToLocal,
             shouldFetch = ::checkIfRemoteSourceFetching,
         )
     }
 
-    private suspend fun loadCharactersFromLocal(pagingLoadTracker: PagingLoadTracker): List<Character> {
-        return localDataSource.getCharacters(pagingLoadTracker.getPagingStatus().pagingOffset)
+    private suspend fun loadCharactersFromLocal(pagingOffset: Int): List<Character> {
+        return localDataSource.getCharacters(pagingOffset)
     }
 
-    private suspend fun fetchCharactersFromRemote(pagingLoadTracker: PagingLoadTracker): List<Character> {
-        return remoteDataSource.getCharacters(pagingLoadTracker)
+    private suspend fun fetchCharactersFromRemote(pagingOffset: Int): List<Character> {
+        return remoteDataSource.getCharacters(pagingOffset)
     }
 
     private suspend fun saveRemoteDataToLocal(characters: List<Character>) {

@@ -128,7 +128,7 @@ fun ImageView.loadImage(
                 this.toString()
             }
         }))
-        .error(errorResource).transition(DrawableTransitionOptions().crossFade(500)).into(this)
+        .error(errorResource).transition(DrawableTransitionOptions().crossFade()).into(this)
 }
 
 fun String?.enforceHttps(): String? =

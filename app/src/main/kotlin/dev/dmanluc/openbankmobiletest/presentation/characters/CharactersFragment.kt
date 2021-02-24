@@ -7,9 +7,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
-import com.google.android.material.transition.MaterialFadeThrough
 import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.databinding.FragmentCharacterListBinding
 import dev.dmanluc.openbankmobiletest.domain.model.Character
@@ -33,38 +31,33 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
     private val binding by viewBinding(FragmentCharacterListBinding::bind)
 
     private val charactersAdapter by lazy {
-        CharactersPagingAdapter { view: View, selectedCharacter: Character ->
-            exitTransition = Hold().apply {
-                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-            }
+        CharactersPagingAdapter(onClickCharacterAction = ::onCharacterClicked)
+    }
 
-            reenterTransition = MaterialElevationScale(true).apply {
-                duration = resources.getInteger(R.integer.motion_duration_small).toLong()
-            }
-
-            val extras = FragmentNavigatorExtras(view to selectedCharacter.thumbnail)
-            findNavController().navigate(
-                CharactersFragmentDirections.actionToCharacterDetail(
-                    selectedCharacter
-                ), extras
-            )
+    private fun onCharacterClicked(view: View, selectedCharacter: Character) {
+        exitTransition = MaterialElevationScale(false).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
         }
+
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+
+        val extras = FragmentNavigatorExtras(view to selectedCharacter.thumbnail)
+        findNavController().navigate(
+            CharactersFragmentDirections.actionToCharacterDetail(
+                selectedCharacter, selectedCharacter.name
+            ), extras
+        )
     }
 
     override fun getViewModel(): BaseViewModel = viewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enterTransition = MaterialFadeThrough().apply {
-            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-        }
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         postponeEnterTransition()
-        view?.doOnPreDraw { startPostponedEnterTransition() }
+        binding.characterRecyclerList.doOnPreDraw { startPostponedEnterTransition() }
 
         configureRecyclerView()
         setupUi()
@@ -75,16 +68,19 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
             layoutManager = GridLayoutManager(context, 2)
             adapter = charactersAdapter
             addOnScrollListener(EndlessRecyclerViewScrollListener { _: Int, totalItemsCount: Int, _: RecyclerView ->
-                viewModel.pagingLoadTracker.appendFrom(totalItemsCount)
-                charactersAdapter.setPagingLoading()
-                viewModel.loadCharacters()
+                onScrollEndAction(totalItemsCount)
             })
         }
     }
 
+    private fun onScrollEndAction(totalItemCount: Int) {
+        charactersAdapter.setPagingLoading()
+        viewModel.loadCharacters(pagingOffset = totalItemCount)
+    }
+
     private fun setupUi() {
-        viewModel.characterListLiveData.observe(viewLifecycleOwner) { charactersList ->
-            charactersAdapter.setAdapterItems(charactersList, viewModel.pagingLoadTracker)
+        viewModel.pagingLoadTrackingStateLiveData.observe(viewLifecycleOwner) { pagingState ->
+            charactersAdapter.setAdapterItems(pagingState)
         }
     }
 

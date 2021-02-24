@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dev.dmanluc.openbankmobiletest.domain.model.ApiError
 import dev.dmanluc.openbankmobiletest.domain.model.Character
-import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTracker
-import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTrackerImpl
+import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTrackingState
 import dev.dmanluc.openbankmobiletest.domain.usecase.GetCharactersUseCase
 import dev.dmanluc.openbankmobiletest.presentation.base.BaseViewModel
 import dev.dmanluc.openbankmobiletest.utils.AppDispatchers
@@ -19,21 +18,41 @@ class CharactersFragmentViewModel(
     private val appDispatchers: AppDispatchers
 ) : BaseViewModel() {
 
-    private val mutableCharacterListLiveData = MutableLiveData<List<Character>>()
-    val characterListLiveData: LiveData<List<Character>> get() = mutableCharacterListLiveData
-
-    var pagingLoadTracker: PagingLoadTracker = PagingLoadTrackerImpl()
+    private val mutablePagingLoadTrackingStateLiveData = MutableLiveData<PagingLoadTrackingState>()
+    val pagingLoadTrackingStateLiveData: LiveData<PagingLoadTrackingState> get() = mutablePagingLoadTrackingStateLiveData
 
     init {
         loadCharacters()
     }
 
-    fun loadCharacters() {
+    fun loadCharacters(pagingOffset: Int = 0) {
         viewModelScope.launch(appDispatchers.io) {
-            getCharactersUseCase(pagingLoadTracker).collect { value ->
+            getCharactersUseCase(pagingOffset).collect { value ->
                 value.fold(ifLeft = ::handleError) { characterList ->
-                    mutableCharacterListLiveData.postValue(characterList)
+                    handleCharactersResult(pagingOffset, characterList)
                 }
+            }
+        }
+    }
+
+    private fun handleCharactersResult(pagingOffset: Int, characters: List<Character>) {
+        when {
+            pagingOffset == 0 -> {
+                mutablePagingLoadTrackingStateLiveData.postValue(
+                    PagingLoadTrackingState.Refresh(
+                        characters
+                    )
+                )
+            }
+            characters.isNotEmpty() -> {
+                mutablePagingLoadTrackingStateLiveData.postValue(
+                    PagingLoadTrackingState.Append(
+                        characters
+                    )
+                )
+            }
+            else -> {
+                mutablePagingLoadTrackingStateLiveData.postValue(PagingLoadTrackingState.EndOfPagination)
             }
         }
     }
