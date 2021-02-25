@@ -35,6 +35,6 @@ data class SummaryItem(
 
 @Parcelize
 data class UrlItem(
-    val type: String,
+    val type: CharacterUrlType?,
     val url: String
 ) : Parcelable

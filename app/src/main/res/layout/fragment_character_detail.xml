@@ -3,228 +3,243 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/detailContainer"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
-        android:background="?attr/selectableItemBackground"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="2dp"
-        app:cardMaxElevation="4dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true">
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:background="?attr/selectableItemBackground"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="2dp"
+            app:cardMaxElevation="4dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ProgressBar
-                android:id="@+id/progressBar"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="96dp"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/character_detail_description"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/character_detail_broken_image"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/character_detail_description"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+                <ProgressBar
+                    android:id="@+id/loadingCharacterImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:indeterminateBehavior="cycle"
+                    android:indeterminateTint="@color/colorAccent"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@id/character_detail_image"
+                    app:layout_constraintLeft_toLeftOf="@id/character_detail_image"
+                    app:layout_constraintRight_toRightOf="@id/character_detail_image"
+                    app:layout_constraintTop_toTopOf="@id/character_detail_image" />
 
-            <ImageView
-                android:id="@+id/character_detail_image"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:scaleType="center"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+                <ImageView
+                    android:id="@+id/character_detail_image"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="center"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/character_detail_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_image"
-                tools:text="Description" />
+                <TextView
+                    android:id="@+id/character_detail_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:textStyle="italic"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_image"
+                    tools:text="Description" />
 
-            <TextView
-                android:id="@+id/character_detail_comics_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/character_detail_comics_number"
-                app:layout_constraintHorizontal_weight="5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_description"
-                tools:text="Comics" />
+                <TextView
+                    android:id="@+id/character_detail_comics_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="@string/character_detail_featured_comics_text"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/character_detail_comics_number"
+                    app:layout_constraintHorizontal_weight="5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_description" />
 
-            <TextView
-                android:id="@+id/character_detail_comics_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/character_detail_comics_title"
-                app:layout_constraintEnd_toStartOf="@+id/character_detail_events_title"
-                app:layout_constraintHorizontal_weight="2.5"
-                app:layout_constraintStart_toEndOf="@+id/character_detail_comics_title"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_description"
-                tools:text="10523" />
+                <TextView
+                    android:id="@+id/character_detail_comics_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/character_detail_comics_title"
+                    app:layout_constraintEnd_toStartOf="@+id/character_detail_events_title"
+                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintStart_toEndOf="@+id/character_detail_comics_title"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_description"
+                    tools:text="10523" />
 
-            <TextView
-                android:id="@+id/character_detail_events_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/character_detail_events_number"
-                app:layout_constraintHorizontal_weight="5"
-                app:layout_constraintStart_toEndOf="@+id/character_detail_comics_number"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_description"
-                tools:text="Eventos" />
+                <TextView
+                    android:id="@+id/character_detail_events_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="@string/character_detail_featured_events_text"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/character_detail_events_number"
+                    app:layout_constraintHorizontal_weight="5"
+                    app:layout_constraintStart_toEndOf="@+id/character_detail_comics_number"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_description" />
 
-            <TextView
-                android:id="@+id/character_detail_events_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/character_detail_events_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2.5"
-                app:layout_constraintStart_toEndOf="@+id/character_detail_events_title"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_description"
-                tools:text="12857" />
+                <TextView
+                    android:id="@+id/character_detail_events_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/character_detail_events_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintStart_toEndOf="@+id/character_detail_events_title"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_description"
+                    tools:text="12857" />
 
-            <TextView
-                android:id="@+id/character_detail_stories_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/character_detail_stories_number"
-                app:layout_constraintHorizontal_weight="5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_comics_title"
-                tools:text="Historias" />
+                <TextView
+                    android:id="@+id/character_detail_stories_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="@string/character_detail_featured_stories_text"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/character_detail_stories_number"
+                    app:layout_constraintHorizontal_weight="5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_comics_title" />
 
-            <TextView
-                android:id="@+id/character_detail_stories_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/character_detail_stories_title"
-                app:layout_constraintEnd_toStartOf="@+id/character_detail_series_title"
-                app:layout_constraintHorizontal_weight="2.5"
-                app:layout_constraintStart_toEndOf="@+id/character_detail_stories_title"
-                tools:text="12345" />
+                <TextView
+                    android:id="@+id/character_detail_stories_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/character_detail_stories_title"
+                    app:layout_constraintEnd_toStartOf="@+id/character_detail_series_title"
+                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintStart_toEndOf="@+id/character_detail_stories_title"
+                    tools:text="12345" />
 
-            <TextView
-                android:id="@+id/character_detail_series_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/character_detail_series_number"
-                app:layout_constraintHorizontal_weight="5"
-                app:layout_constraintStart_toEndOf="@+id/character_detail_stories_number"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_events_title"
-                tools:text="Series" />
+                <TextView
+                    android:id="@+id/character_detail_series_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/character_detail_featured_series_text"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/character_detail_series_number"
+                    app:layout_constraintHorizontal_weight="5"
+                    app:layout_constraintStart_toEndOf="@+id/character_detail_stories_number"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_events_title" />
 
-            <TextView
-                android:id="@+id/character_detail_series_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/character_detail_series_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2.5"
-                app:layout_constraintStart_toEndOf="@+id/character_detail_series_title"
-                tools:text="12345" />
+                <TextView
+                    android:id="@+id/character_detail_series_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/character_detail_series_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintStart_toEndOf="@+id/character_detail_series_title"
+                    tools:text="12345" />
 
-            <TextView
-                android:id="@+id/character_detail_additional_info_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginBottom="32dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_stories_title"
-                tools:text="Recursos Adicionales" />
+                <TextView
+                    android:id="@+id/character_detail_additional_info_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="32dp"
+                    android:text="@string/character_detail_additional_resources_title_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_stories_title" />
 
-            <TextView
-                android:id="@+id/character_detail_additional_info_detail_res"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginBottom="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:textSize="14sp"
-                android:visibility="gone"
-                app:drawableEndCompat="@drawable/ic_insert_link_black_24dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_additional_info_title"
-                tools:visibility="visible" />
+                <TextView
+                    android:id="@+id/character_detail_additional_info_detail_res"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:text="@string/character_detail_additional_resources_detail_info_text"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:drawableEndCompat="@drawable/ic_arrow_right"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_additional_info_title"
+                    tools:visibility="visible" />
 
-            <TextView
-                android:id="@+id/character_detail_additional_info_wiki_res"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginBottom="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:textSize="14sp"
-                android:visibility="gone"
-                app:drawableEndCompat="@drawable/ic_insert_link_black_24dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_additional_info_detail_res"
-                tools:visibility="visible" />
+                <TextView
+                    android:id="@+id/character_detail_additional_info_wiki_res"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:text="@string/character_detail_additional_resources_wiki_text"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:drawableEndCompat="@drawable/ic_arrow_right"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_additional_info_detail_res"
+                    tools:visibility="visible" />
 
-            <TextView
-                android:id="@+id/character_detail_additional_info_comics_res"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginBottom="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:visibility="gone"
-                app:drawableEndCompat="@drawable/ic_insert_link_black_24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/character_detail_additional_info_wiki_res"
-                tools:visibility="visible" />
+                <TextView
+                    android:id="@+id/character_detail_additional_info_comics_res"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:text="@string/character_detail_additional_resources_comiclink_text"
+                    android:visibility="gone"
+                    app:drawableEndCompat="@drawable/ic_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/character_detail_additional_info_wiki_res"
+                    tools:visibility="visible" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
 </ScrollView>

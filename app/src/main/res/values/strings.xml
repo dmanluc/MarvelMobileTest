@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Marvel Characters</string>
+
+    <string name="character_detail_featured_comics_text">Comics</string>
+    <string name="character_detail_featured_events_text">Events</string>
+    <string name="character_detail_featured_stories_text">Stories</string>
+    <string name="character_detail_featured_series_text">Series</string>
+    <string name="character_detail_additional_resources_title_text">Additional Web Resources</string>
+    <string name="character_detail_additional_resources_detail_info_text">More details</string>
+    <string name="character_detail_additional_resources_wiki_text">Wiki</string>
+    <string name="character_detail_additional_resources_comiclink_text">See featured comics</string>
 </resources>

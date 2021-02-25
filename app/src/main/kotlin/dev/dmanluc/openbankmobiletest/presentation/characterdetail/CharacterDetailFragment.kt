@@ -7,11 +7,11 @@ import com.google.android.material.transition.MaterialContainerTransform
 import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.databinding.FragmentCharacterDetailBinding
 import dev.dmanluc.openbankmobiletest.domain.model.Character
-import dev.dmanluc.openbankmobiletest.presentation.MarvelActivity
+import dev.dmanluc.openbankmobiletest.domain.model.CharacterUrlType
+import dev.dmanluc.openbankmobiletest.domain.model.UrlItem
 import dev.dmanluc.openbankmobiletest.presentation.base.BaseFragment
 import dev.dmanluc.openbankmobiletest.presentation.base.BaseViewModel
-import dev.dmanluc.openbankmobiletest.utils.loadImage
-import dev.dmanluc.openbankmobiletest.utils.viewBinding
+import dev.dmanluc.openbankmobiletest.utils.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -54,14 +54,47 @@ class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail)
         with(binding) {
             characterDetailImage.transitionName = character.thumbnail
             characterDetailImage.loadImage(character.thumbnail,
-                onResourceReadyDelegate = { startPostponedEnterTransition() },
-                onExceptionDelegate = { startPostponedEnterTransition() })
+                onResourceReadyDelegate = { applyAfterLoadingCharacterImageAction() },
+                onExceptionDelegate = { applyAfterLoadingCharacterImageAction() })
 
-            characterDetailDescription.text = character.description
+            characterDetailDescription.textOrHide(character.description)
             characterDetailComicsNumber.text = character.comicsSummary.available.toString()
             characterDetailSeriesNumber.text = character.seriesSummary.available.toString()
             characterDetailEventsNumber.text = character.eventsSummary.available.toString()
             characterDetailStoriesNumber.text = character.storiesSummary.available.toString()
+
+            character.urls?.let(::setupCharacterLinkResourcesNavigation) ?: characterDetailAdditionalInfoTitle.hide()
+        }
+    }
+
+    private fun applyAfterLoadingCharacterImageAction() {
+        binding.loadingCharacterImage.hide()
+        startPostponedEnterTransition()
+    }
+
+    private fun setupCharacterLinkResourcesNavigation(urlItems: List<UrlItem>) {
+        urlItems.forEach { urlItem ->
+            when (urlItem.type) {
+                CharacterUrlType.DETAIL -> {
+                    with(binding.characterDetailAdditionalInfoDetailRes) {
+                        show()
+                        setOnClickListener { activity?.let { urlItem.url.navigateToUrl(it) } }
+                    }
+                }
+                CharacterUrlType.COMIC -> {
+                    with(binding.characterDetailAdditionalInfoComicsRes) {
+                        show()
+                        setOnClickListener { activity?.let { urlItem.url.navigateToUrl(it) } }
+                    }
+                }
+                CharacterUrlType.WIKI -> {
+                    with(binding.characterDetailAdditionalInfoWikiRes) {
+                        show()
+                        setOnClickListener { activity?.let { urlItem.url.navigateToUrl(it) } }
+                    }
+                }
+                else -> return
+            }
         }
     }
 

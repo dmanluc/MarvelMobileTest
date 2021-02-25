@@ -1,5 +1,6 @@
 package dev.dmanluc.openbankmobiletest.di
 
+import com.google.gson.Gson
 import dev.dmanluc.openbankmobiletest.data.local.dao.CharactersDao
 import dev.dmanluc.openbankmobiletest.data.local.datasource.CharactersLocalDataSource
 import dev.dmanluc.openbankmobiletest.data.local.datasource.CharactersLocalDataSourceImpl
@@ -22,7 +23,7 @@ import org.koin.dsl.module
 val repositoryModule: Module = module {
     factory { CharactersDataSourceManager(get()) }
     factory { provideLocalDataSource(get()) }
-    factory { provideRemoteDataSource(get()) }
+    factory { provideRemoteDataSource(get(), get()) }
     factory { provideCharactersRepository(get(), get(), get()) }
 }
 
@@ -32,7 +33,8 @@ private fun provideLocalDataSource(
 
 private fun provideRemoteDataSource(
     marvelApi: MarvelApi,
-): CharactersRemoteDataSource = CharactersRemoteDataSourceImpl(marvelApi)
+    gson: Gson
+): CharactersRemoteDataSource = CharactersRemoteDataSourceImpl(marvelApi, gson)
 
 private fun provideCharactersRepository(
     localDataSource: CharactersLocalDataSource,

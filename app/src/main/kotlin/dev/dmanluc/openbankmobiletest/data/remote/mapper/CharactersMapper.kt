@@ -1,16 +1,15 @@
 package dev.dmanluc.openbankmobiletest.data.remote.mapper
 
+import com.google.gson.Gson
 import dev.dmanluc.openbankmobiletest.data.remote.model.MarvelCharactersApiResponse
-import dev.dmanluc.openbankmobiletest.domain.model.Character
-import dev.dmanluc.openbankmobiletest.domain.model.SummaryItem
-import dev.dmanluc.openbankmobiletest.domain.model.SummaryList
-import dev.dmanluc.openbankmobiletest.domain.model.UrlItem
+import dev.dmanluc.openbankmobiletest.domain.model.*
 import dev.dmanluc.openbankmobiletest.utils.enforceHttps
 import dev.dmanluc.openbankmobiletest.utils.fromUTCTimeToDate
+import dev.dmanluc.openbankmobiletest.utils.parseEnum
 import java.util.*
 
 
-internal fun MarvelCharactersApiResponse.toDomainModel(): List<Character> {
+internal fun MarvelCharactersApiResponse.toDomainModel(gson: Gson): List<Character> {
     val dotSymbol = "."
 
     return this.data?.results?.map { characterItem ->
@@ -25,7 +24,7 @@ internal fun MarvelCharactersApiResponse.toDomainModel(): List<Character> {
             }.enforceHttps().orEmpty(),
             urls = characterItem.urls?.map { urlItemResponse ->
                 UrlItem(
-                    type = urlItemResponse.type.orEmpty(),
+                    type = gson.parseEnum(urlItemResponse.type.orEmpty()) ?: CharacterUrlType.UNDEFINED,
                     url = urlItemResponse.url.orEmpty()
                 )
             },

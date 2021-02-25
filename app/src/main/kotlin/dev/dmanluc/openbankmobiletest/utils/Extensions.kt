@@ -1,12 +1,16 @@
 package dev.dmanluc.openbankmobiletest.utils
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -18,6 +22,8 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.signature.ObjectKey
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.core.GlideApp
 import java.security.MessageDigest
@@ -144,3 +150,33 @@ fun String?.enforceHttps(): String? =
     if (this != null && !this.contains("https"))
         this.replace("http", "https")
     else this
+
+fun View.show() {
+    visibility = View.VISIBLE
+}
+
+fun View.hide() {
+    visibility = View.GONE
+}
+
+fun View.visible(value: Boolean) {
+    if (value) show() else hide()
+}
+
+fun TextView.textOrHide(text: String?) {
+    if (text.isNullOrBlank()) {
+        this.hide()
+    } else {
+        this.text = text
+    }
+}
+
+fun String.navigateToUrl(context: Context) {
+    val openUrlIntent = Intent(Intent.ACTION_VIEW, Uri.parse(this.enforceHttps()))
+
+    openUrlIntent.resolveActivity(context.packageManager)
+        ?.let { startActivity(context, openUrlIntent, null) }
+}
+
+inline fun <reified T : Any> Gson.parseEnum(value: Any?): T? =
+    fromJson(toJson(value), T::class.java)
