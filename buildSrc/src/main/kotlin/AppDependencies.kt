@@ -38,6 +38,8 @@ object AppDependencies {
     private val koinViewModelAndroid = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
     private val httpLoggingInterceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.httpLoggingInterceptor}"
+
+
     private val arrowCore = "io.arrow-kt:arrow-core-data:${Versions.arrowCore}"
     private val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     private val glideCompilerKapt = "com.github.bumptech.glide:compiler:${Versions.glide}"
@@ -45,8 +47,21 @@ object AppDependencies {
 
     //Testing
     private val junit = "junit:junit:${Versions.junit}"
-    private val extJUnit = "androidx.test.ext:junit:${Versions.extJunit}"
+    private val mockWebServer = "com.squareup.okhttp:mockwebserver:${Versions.mockWebServer}"
+    private val mockk = "io.mockk:mockk:${Versions.mockk}"
+    private val koinTest = "org.koin:koin-test:${Versions.koinTest}"
+    private val androidXTestRunner = "androidx.test:runner:${Versions.androidXTestRunner}"
+    private val androidXCoreTesting =
+        "androidx.arch.core:core-testing:${Versions.androidXCoreTesting}"
+    private val androidXJunitTesting = "androidx.test.ext:junit:${Versions.androidXJUnitTest}"
+
+    private val androidXFragmentTesting =
+        "androidx.fragment:fragment-testing:${Versions.androidXFragmentTesting}"
+    private val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
     private val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    private val espressoContrib = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    private val espressoIdlingResource =
+        "androidx.test.espresso:espresso-idling-resource:${Versions.espresso}"
 
     val appLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
@@ -71,15 +86,24 @@ object AppDependencies {
         add(arrowCore)
         add(glide)
         add(lottie)
+        add(mockk)
+        add(koinTest)
+        add(androidXTestRunner)
+        add(androidXCoreTesting)
+        add(androidXJunitTesting)
+        add(androidXFragmentTesting)
+        add(espressoCore)
+        add(espressoContrib)
+        add(espressoIdlingResource)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {
-        add(extJUnit)
-        add(espressoCore)
+        add(mockkAndroid)
     }
 
     val testLibraries = arrayListOf<String>().apply {
         add(junit)
+        add(mockWebServer)
     }
 
     val kaptLibraries = arrayListOf<String>().apply {

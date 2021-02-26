@@ -29,6 +29,12 @@ object Versions {
 
     // Testing
     val junit = "4.13.1"
-    val extJunit = "1.1.2"
-    val espresso = "3.2.0"
+    val espresso = "3.3.0"
+    val androidXTestRunner = "1.3.0"
+    val androidXCoreTesting = "2.1.0"
+    val androidXJUnitTest = "1.1.2"
+    val androidXFragmentTesting = "1.3.0"
+    val mockk = "1.9.2"
+    val koinTest = "2.1.5"
+    val mockWebServer = "2.7.5"
 }
