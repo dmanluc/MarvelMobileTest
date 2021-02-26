@@ -27,6 +27,9 @@ android {
     sourceSets.getByName("main") {
         java.srcDir("src/main/java")
         java.srcDir("src/main/kotlin")
+        resources {
+            srcDirs("src/main/resources", "src/test/java/resources")
+        }
     }
 
     sourceSets.getByName("test") {

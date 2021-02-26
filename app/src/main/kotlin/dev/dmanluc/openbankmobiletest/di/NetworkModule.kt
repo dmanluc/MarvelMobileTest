@@ -13,10 +13,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-val networkModule = module {
+fun createNetworkModule(baseUrl: String) = module {
     single { provideGson() }
     single { provideOkHttpClient() }
-    single { provideRetrofit(okHttpClient = get(), url = BuildConfig.MARVEL_BASE_URL) }
+    single { provideRetrofit(okHttpClient = get(), url = baseUrl) }
     single { provideMarvelApiService(retrofit = get()) }
 }
 

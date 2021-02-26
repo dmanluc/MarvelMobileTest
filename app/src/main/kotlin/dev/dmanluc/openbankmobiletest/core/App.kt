@@ -1,6 +1,7 @@
 package dev.dmanluc.openbankmobiletest.core
 
 import android.app.Application
+import dev.dmanluc.openbankmobiletest.BuildConfig
 import dev.dmanluc.openbankmobiletest.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -24,7 +25,7 @@ class App : Application() {
             koin.loadModules(
                 listOf(
                     localModule,
-                    networkModule,
+                    createNetworkModule(BuildConfig.MARVEL_BASE_URL),
                     repositoryModule,
                     charactersModule,
                     characterDetailModule
