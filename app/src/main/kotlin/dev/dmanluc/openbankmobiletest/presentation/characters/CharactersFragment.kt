@@ -7,6 +7,8 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager.*
 import com.google.android.material.transition.MaterialElevationScale
 import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.databinding.FragmentCharacterListBinding
@@ -36,8 +38,8 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
     }
 
     private val endlessRecyclerViewScrollListener by lazy {
-        EndlessRecyclerViewScrollListener { _: Int, totalItemsCount: Int, _: RecyclerView ->
-            onScrollEndAction(totalItemsCount)
+        EndlessRecyclerViewScrollListener { itemCount ->
+            onScrollEndAction(itemCount)
         }
     }
 
@@ -72,7 +74,9 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
 
     private fun configureRecyclerView() {
         binding.characterRecyclerList.apply {
-            layoutManager = GridLayoutManager(context, 2)
+            layoutManager = StaggeredGridLayoutManager(2, VERTICAL).apply {
+                gapStrategy = GAP_HANDLING_NONE
+            }
             adapter = charactersAdapter
             addOnScrollListener(endlessRecyclerViewScrollListener)
         }
@@ -85,6 +89,7 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
 
     private fun setupUi() {
         viewModel.pagingLoadTrackingStateLiveData.observeEvent(viewLifecycleOwner) { pagingState ->
+            endlessRecyclerViewScrollListener.setLoaded()
             charactersAdapter.setAdapterItems(pagingState)
         }
     }

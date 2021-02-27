@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -38,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:indeterminate="true"
                     android:indeterminateBehavior="cycle"
-                    android:indeterminateTint="@color/colorAccent"
+                    android:indeterminateTint="@color/background_character"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="@id/character_detail_image"
                     app:layout_constraintLeft_toLeftOf="@id/character_detail_image"

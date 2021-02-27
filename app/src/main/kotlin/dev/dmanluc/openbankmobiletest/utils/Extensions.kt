@@ -2,6 +2,7 @@ package dev.dmanluc.openbankmobiletest.utils
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.LayoutInflater
@@ -57,6 +58,8 @@ fun String.hashMd5(): String {
 
 fun Boolean?.orFalse(): Boolean = this ?: false
 
+fun Int?.orZero() = this ?: 0
+
 fun Fragment.showSnackbar(snackbarText: String, timeLength: Int) {
     activity?.let {
         Snackbar.make(it.findViewById(android.R.id.content), snackbarText, timeLength).show()
@@ -110,7 +113,8 @@ fun ImageView.loadImage(
     errorResource: Int = R.drawable.ic_broken_image_black_24dp,
     onExceptionDelegate: () -> Unit = {},
     onResourceReadyDelegate: () -> Unit = {},
-    daysWhileValidCache: Int = 1
+    daysWhileValidCache: Int = 1,
+    onSizeReady: (Int, Int) -> Unit = { width, height -> }
 ) {
 
     GlideApp.with(this.context).load(Uri.parse(path)).listener(object : RequestListener<Drawable> {
@@ -132,6 +136,8 @@ fun ImageView.loadImage(
             isFirstResource: Boolean
         ): Boolean {
             onResourceReadyDelegate()
+            resource as? BitmapDrawable ?: return false
+            onSizeReady(resource.intrinsicWidth, resource.intrinsicHeight)
             return false
         }
     })
