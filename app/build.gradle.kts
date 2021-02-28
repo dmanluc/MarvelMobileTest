@@ -27,9 +27,6 @@ android {
     sourceSets.getByName("main") {
         java.srcDir("src/main/java")
         java.srcDir("src/main/kotlin")
-        resources {
-            srcDirs("src/main/resources", "src/test/java/resources")
-        }
     }
 
     sourceSets.getByName("test") {
@@ -40,6 +37,9 @@ android {
     sourceSets.getByName("androidTest") {
         java.srcDir("src/androidTest/java")
         java.srcDir("src/androidTest/kotlin")
+        resources {
+            srcDirs("src/test/resources")
+        }
     }
 
     buildTypes {

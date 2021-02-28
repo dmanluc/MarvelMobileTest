@@ -3,10 +3,11 @@ package dev.dmanluc.openbankmobiletest.utils
 import androidx.annotation.VisibleForTesting
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import dev.dmanluc.openbankmobiletest.data.local.entity.CharacterEntity
+import dev.dmanluc.openbankmobiletest.data.local.mapper.toDatabaseEntity
 import dev.dmanluc.openbankmobiletest.data.remote.mapper.toDomainModel
 import dev.dmanluc.openbankmobiletest.data.remote.model.MarvelCharactersApiResponse
 import dev.dmanluc.openbankmobiletest.domain.model.Character
-import java.io.File
 
 /**
  * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
@@ -19,7 +20,7 @@ import java.io.File
 object MockDataProvider {
 
     const val MOCK_CHARACTERS_JSON_FILENAME = "mockCharactersApiResponse.json"
-    const val MOCK_EMPTY_CHARACTERS_JSON_FILENAME = "mockEmptyCharactersApiResponse.json"
+    private const val MOCK_EMPTY_CHARACTERS_JSON_FILENAME = "mockEmptyCharactersApiResponse.json"
     private val gson = GsonBuilder().create()
 
     fun createMockCharacterList(): List<Character> {
@@ -36,9 +37,14 @@ object MockDataProvider {
     }
 
     fun readJsonAsString(path: String): String {
-        val uri = this.javaClass.classLoader?.getResource(path)
-        val file = File(uri?.path.orEmpty())
-        return String(file.readBytes())
+        val stream = this.javaClass.classLoader?.getResourceAsStream(path) ?: return ""
+        return stream.bufferedReader().use { bufferReader ->
+            bufferReader.readText()
+        }
+    }
+
+    fun createMockCharacterEntities(): List<CharacterEntity> {
+        return createMockCharacterList().map { it.toDatabaseEntity() }
     }
 
     private inline fun <reified T> parseMockJson(jsonPath: String): T {
