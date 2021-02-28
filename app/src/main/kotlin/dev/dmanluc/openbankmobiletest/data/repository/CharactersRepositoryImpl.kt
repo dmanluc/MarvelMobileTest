@@ -2,8 +2,8 @@ package dev.dmanluc.openbankmobiletest.data.repository
 
 import arrow.core.Either
 import dev.dmanluc.openbankmobiletest.data.local.datasource.CharactersLocalDataSource
-import dev.dmanluc.openbankmobiletest.domain.model.ApiError
 import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSource
+import dev.dmanluc.openbankmobiletest.domain.model.ApiError
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.domain.repository.CharactersRepository
 import dev.dmanluc.openbankmobiletest.utils.orFalse
@@ -15,12 +15,26 @@ class CharactersRepositoryImpl(
     private val dataSourceManager: DataSourceManager
 ) : CharactersRepository {
 
-    override suspend fun getCharacters(pagingOffset: Int): Flow<Either<ApiError, List<Character>>> {
+    override suspend fun getCharacters(
+        pagingOffset: Int,
+        forceRefresh: Boolean
+    ): Flow<Either<ApiError, List<Character>>> {
         return dataSourceManager.performDataRequest(
             localDataQuery = { loadCharactersFromLocal(pagingOffset) },
             fetchFromRemoteSource = { fetchCharactersFromRemote(pagingOffset) },
-            saveFetchResult = ::saveRemoteDataToLocal,
-            shouldFetch = ::checkIfRemoteSourceFetching,
+            saveFetchResult = { remoteFetchedCharacters, isLocalDataInvalid ->
+                saveRemoteDataToLocal(
+                    remoteFetchedCharacters,
+                    isLocalDataInvalid
+                )
+            },
+            shouldInvalidateLocalData = { forceRefresh },
+            shouldFetch = { savedCharacters ->
+                checkIfRemoteSourceFetching(
+                    savedCharacters,
+                    forceRefresh
+                )
+            }
         )
     }
 
@@ -32,12 +46,22 @@ class CharactersRepositoryImpl(
         return charactersRemoteDataSource.getCharacters(pagingOffset)
     }
 
-    private suspend fun saveRemoteDataToLocal(characters: List<Character>) {
-        charactersLocalDataSource.saveCharacters(characters)
+    private suspend fun saveRemoteDataToLocal(
+        characters: List<Character>,
+        invalidateLocalData: Boolean
+    ) {
+        if (invalidateLocalData) {
+            charactersLocalDataSource.replaceAllCharacters(characters)
+        } else {
+            charactersLocalDataSource.saveCharacters(characters)
+        }
     }
 
-    private fun checkIfRemoteSourceFetching(savedCharactersFromLocalDataSource: List<Character>?): Boolean {
-        return savedCharactersFromLocalDataSource?.isEmpty().orFalse()
+    private fun checkIfRemoteSourceFetching(
+        savedCharactersFromLocalDataSource: List<Character>?,
+        forceRefresh: Boolean
+    ): Boolean {
+        return forceRefresh || savedCharactersFromLocalDataSource?.isEmpty().orFalse()
     }
 
 }

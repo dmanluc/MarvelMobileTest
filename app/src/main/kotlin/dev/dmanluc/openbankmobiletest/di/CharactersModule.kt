@@ -3,6 +3,7 @@ package dev.dmanluc.openbankmobiletest.di
 import dev.dmanluc.openbankmobiletest.domain.usecase.GetCharactersUseCase
 import dev.dmanluc.openbankmobiletest.presentation.characters.CharactersFragmentViewModel
 import dev.dmanluc.openbankmobiletest.utils.DefaultDispatcherProvider
+import dev.dmanluc.openbankmobiletest.utils.DispatcherProvider
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -16,6 +17,8 @@ import org.koin.dsl.module
  */
 val charactersModule: Module = module {
     factory { GetCharactersUseCase(get()) }
-    single { DefaultDispatcherProvider() }
+    single { provideDispatcherProvider() }
     viewModel { CharactersFragmentViewModel(get(), get()) }
 }
+
+private fun provideDispatcherProvider(): DispatcherProvider = DefaultDispatcherProvider()

@@ -15,4 +15,6 @@ interface CharactersLocalDataSource {
 
     suspend fun deleteAllCharacters()
 
+    suspend fun replaceAllCharacters(characters: List<Character>)
+
 }

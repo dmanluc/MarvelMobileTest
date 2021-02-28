@@ -1,9 +1,6 @@
 package dev.dmanluc.openbankmobiletest.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import dev.dmanluc.openbankmobiletest.data.local.entity.CharacterEntity
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import kotlinx.coroutines.flow.Flow
@@ -17,15 +14,21 @@ import kotlinx.coroutines.flow.Flow
  *
  */
 @Dao
-interface CharactersDao {
+abstract class CharactersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(items: List<CharacterEntity>)
+    abstract suspend fun insert(items: List<CharacterEntity>)
 
     @Query("SELECT * FROM marvelCharacters LIMIT 20 OFFSET :fromOffset")
-    suspend fun getCharacters(fromOffset: Int): List<CharacterEntity>
+    abstract suspend fun getCharacters(fromOffset: Int): List<CharacterEntity>
 
     @Query("DELETE FROM marvelCharacters")
-    suspend fun deleteAllCharacters()
+    abstract fun deleteAllCharacters()
+
+    @Transaction
+    open suspend fun replaceAllCharacters(items: List<CharacterEntity>) {
+        deleteAllCharacters()
+        insert(items)
+    }
 
 }

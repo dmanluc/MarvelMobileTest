@@ -86,7 +86,7 @@ class CharactersRepositoryImplTest {
     }
 
     @Test
-    fun `get characters from remote API and save them to local database`() {
+    fun `get characters from remote API and update them to local database`() {
         coEvery {
             marvelApiService.getCharacters(
                 any(),
@@ -114,7 +114,32 @@ class CharactersRepositoryImplTest {
     }
 
     @Test
-    fun `get characters from local database`() {
+    fun `get characters from remote API and refresh them to local database`() {
+        coEvery {
+            marvelApiService.getCharacters(
+                any(),
+                any(),
+                any(),
+                any()
+            )
+        } returns MockDataProvider.createMockCharactersApiResponse()
+        coEvery { charactersDao.getCharacters(any()) } returns listOf() andThen mockProductsEntities
+
+        coroutinesTestRule.testDispatcher.runBlockingTest {
+            flowResult = charactersRepository.getCharacters(0, forceRefresh = true).single()
+        }
+
+        flowResult shouldBeRight mockCharacters
+
+        coVerifyOrder {
+            charactersDao.getCharacters(any())
+            marvelApiService.getCharacters(any(), any(), any(), any())
+            charactersDao.replaceAllCharacters(any())
+        }
+    }
+
+    @Test
+    fun `get characters from local database previously saved`() {
         coEvery { charactersDao.getCharacters(any()) } returns mockProductsEntities
 
         coroutinesTestRule.testDispatcher.runBlockingTest {

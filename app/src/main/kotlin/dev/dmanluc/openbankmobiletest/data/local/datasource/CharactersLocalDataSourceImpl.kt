@@ -22,4 +22,9 @@ class CharactersLocalDataSourceImpl(
         charactersDao.deleteAllCharacters()
     }
 
+    override suspend fun replaceAllCharacters(characters: List<Character>) {
+        val characterEntityList = characters.map { it.toDatabaseEntity() }
+        charactersDao.replaceAllCharacters(characterEntityList)
+    }
+
 }

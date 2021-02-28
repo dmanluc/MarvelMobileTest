@@ -26,6 +26,8 @@ object AppDependencies {
     private val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
     private val roomKapt = "androidx.room:room-compiler:${Versions.room}"
     private val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    private val swipeRefreshLayout =
+        "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
 
     //Frameworks
     private val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
@@ -98,6 +100,7 @@ object AppDependencies {
         add(espressoCore)
         add(espressoContrib)
         add(espressoIdlingResource)
+        add(swipeRefreshLayout)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {

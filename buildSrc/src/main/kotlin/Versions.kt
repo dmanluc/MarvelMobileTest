@@ -16,6 +16,7 @@ object Versions {
     val navigationUiKtx = "2.3.0"
     val room = "2.2.6"
     val navigationSafeArgs = "2.3.3"
+    val swipeRefreshLayout = "1.1.0"
 
     //Frameworks
     val retrofit = "2.9.0"

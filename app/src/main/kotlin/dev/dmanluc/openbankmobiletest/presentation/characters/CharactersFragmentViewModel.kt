@@ -25,14 +25,18 @@ class CharactersFragmentViewModel(
         loadCharacters()
     }
 
-    fun loadCharacters(pagingOffset: Int = 0) {
+    fun loadCharacters(pagingOffset: Int = 0, forceRefresh: Boolean = false) {
         viewModelScope.launch(appDispatchers.io()) {
-            getCharactersUseCase(pagingOffset).collect { value ->
+            getCharactersUseCase(pagingOffset, forceRefresh).collect { value ->
                 value.fold(ifLeft = ::handleError) { characterList ->
                     handleCharactersResult(pagingOffset, characterList)
                 }
             }
         }
+    }
+
+    fun refreshCharacters() {
+        loadCharacters(forceRefresh = true)
     }
 
     private fun handleCharactersResult(pagingOffset: Int, characters: List<Character>) {

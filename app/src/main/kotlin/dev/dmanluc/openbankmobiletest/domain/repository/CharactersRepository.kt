@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface CharactersRepository {
 
-    suspend fun getCharacters(pagingOffset: Int): Flow<Either<ApiError, List<Character>>>
+    suspend fun getCharacters(pagingOffset: Int, forceRefresh: Boolean = false): Flow<Either<ApiError, List<Character>>>
 
 }

@@ -16,8 +16,11 @@ and save them to database. If saved, return them from database.
  */
 class GetCharactersUseCase(private val repository: CharactersRepository) {
 
-    suspend operator fun invoke(pagingOffset: Int): Flow<Either<ApiError, List<Character>>> {
-        return repository.getCharacters(pagingOffset)
+    suspend operator fun invoke(
+        pagingOffset: Int,
+        forceRefresh: Boolean = false
+    ): Flow<Either<ApiError, List<Character>>> {
+        return repository.getCharacters(pagingOffset, forceRefresh)
     }
 
 }

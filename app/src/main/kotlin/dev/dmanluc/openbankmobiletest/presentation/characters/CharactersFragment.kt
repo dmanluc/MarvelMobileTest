@@ -5,10 +5,9 @@ import android.view.View
 import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager.*
+import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_NONE
+import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
 import com.google.android.material.transition.MaterialElevationScale
 import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.databinding.FragmentCharacterListBinding
@@ -90,7 +89,11 @@ class CharactersFragment : BaseFragment(R.layout.fragment_character_list) {
     private fun setupUi() {
         viewModel.pagingLoadTrackingStateLiveData.observeEvent(viewLifecycleOwner) { pagingState ->
             endlessRecyclerViewScrollListener.setLoaded()
+            binding.charactersSwipeRefreshLayout.isRefreshing = false
             charactersAdapter.setAdapterItems(pagingState)
+        }
+        binding.charactersSwipeRefreshLayout.setOnRefreshListener {
+            viewModel.refreshCharacters()
         }
     }
 

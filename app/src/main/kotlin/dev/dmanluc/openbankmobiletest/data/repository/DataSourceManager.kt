@@ -19,7 +19,8 @@ class DataSourceManager(
     inline fun <ResultType> performDataRequest(
         crossinline localDataQuery: suspend () -> ResultType,
         crossinline fetchFromRemoteSource: suspend () -> ResultType,
-        crossinline saveFetchResult: suspend (ResultType) -> Unit,
+        crossinline saveFetchResult: suspend (ResultType, Boolean) -> Unit,
+        crossinline shouldInvalidateLocalData: (ResultType) -> Boolean = { false },
         crossinline shouldFetch: (ResultType) -> Boolean = { true },
     ) = flow {
         val localData = localDataQuery()
@@ -27,7 +28,7 @@ class DataSourceManager(
         val resultAsFlow = flow {
             if (localData == null || shouldFetch(localData)) {
                 val networkResult = fetchFromRemoteSource()
-                saveFetchResult(networkResult)
+                saveFetchResult(networkResult, shouldInvalidateLocalData(localData))
                 emit(networkResult.right())
             } else {
                 emit(localData.right())
