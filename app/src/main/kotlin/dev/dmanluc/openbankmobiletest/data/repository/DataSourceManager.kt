@@ -6,11 +6,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dev.dmanluc.openbankmobiletest.data.remote.model.MarvelCharactersApiResponse
 import dev.dmanluc.openbankmobiletest.domain.model.ApiError
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 
-class CharactersDataSourceManager(
+class DataSourceManager(
     private val gson: Gson
 ) {
 

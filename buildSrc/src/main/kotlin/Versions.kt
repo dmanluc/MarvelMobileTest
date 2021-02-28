@@ -28,6 +28,7 @@ object Versions {
     val lottie = "3.6.1"
 
     // Testing
+    val kotlinCoroutinesTest = "1.4.2"
     val junit = "4.13.1"
     val espresso = "3.3.0"
     val androidXTestRunner = "1.3.0"
@@ -37,4 +38,5 @@ object Versions {
     val mockk = "1.9.2"
     val koinTest = "2.1.5"
     val mockWebServer = "2.7.5"
+    val kotestArrow = "3.4.2"
 }

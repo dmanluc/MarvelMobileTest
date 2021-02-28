@@ -7,9 +7,9 @@ import dev.dmanluc.openbankmobiletest.data.local.datasource.CharactersLocalDataS
 import dev.dmanluc.openbankmobiletest.data.remote.api.MarvelApi
 import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSource
 import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSourceImpl
-import dev.dmanluc.openbankmobiletest.data.repository.CharactersDataSourceManager
-import dev.dmanluc.openbankmobiletest.data.repository.MarvelCharactersRepositoryImpl
-import dev.dmanluc.openbankmobiletest.domain.repository.MarvelCharactersRepository
+import dev.dmanluc.openbankmobiletest.data.repository.DataSourceManager
+import dev.dmanluc.openbankmobiletest.data.repository.CharactersRepositoryImpl
+import dev.dmanluc.openbankmobiletest.domain.repository.CharactersRepository
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -21,7 +21,7 @@ import org.koin.dsl.module
  *
  */
 val repositoryModule: Module = module {
-    factory { CharactersDataSourceManager(get()) }
+    factory { DataSourceManager(get()) }
     factory { provideLocalDataSource(get()) }
     factory { provideRemoteDataSource(get(), get()) }
     factory { provideCharactersRepository(get(), get(), get()) }
@@ -39,6 +39,6 @@ private fun provideRemoteDataSource(
 private fun provideCharactersRepository(
     localDataSource: CharactersLocalDataSource,
     remoteDataSource: CharactersRemoteDataSource,
-    charactersDataSourceManager: CharactersDataSourceManager
-): MarvelCharactersRepository =
-    MarvelCharactersRepositoryImpl(localDataSource, remoteDataSource, charactersDataSourceManager)
+    dataSourceManager: DataSourceManager
+): CharactersRepository =
+    CharactersRepositoryImpl(localDataSource, remoteDataSource, dataSourceManager)

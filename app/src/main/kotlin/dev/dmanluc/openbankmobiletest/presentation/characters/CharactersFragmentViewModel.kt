@@ -8,14 +8,14 @@ import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTrackingState
 import dev.dmanluc.openbankmobiletest.domain.usecase.GetCharactersUseCase
 import dev.dmanluc.openbankmobiletest.presentation.base.BaseViewModel
-import dev.dmanluc.openbankmobiletest.utils.AppDispatchers
+import dev.dmanluc.openbankmobiletest.utils.DispatcherProvider
 import dev.dmanluc.openbankmobiletest.utils.Event
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CharactersFragmentViewModel(
     private val getCharactersUseCase: GetCharactersUseCase,
-    private val appDispatchers: AppDispatchers
+    private val appDispatchers: DispatcherProvider
 ) : BaseViewModel() {
 
     private val mutablePagingLoadTrackingStateLiveData by lazy { MutableLiveData<Event<PagingLoadTrackingState>>() }
@@ -26,7 +26,7 @@ class CharactersFragmentViewModel(
     }
 
     fun loadCharacters(pagingOffset: Int = 0) {
-        viewModelScope.launch(appDispatchers.io) {
+        viewModelScope.launch(appDispatchers.io()) {
             getCharactersUseCase(pagingOffset).collect { value ->
                 value.fold(ifLeft = ::handleError) { characterList ->
                     handleCharactersResult(pagingOffset, characterList)

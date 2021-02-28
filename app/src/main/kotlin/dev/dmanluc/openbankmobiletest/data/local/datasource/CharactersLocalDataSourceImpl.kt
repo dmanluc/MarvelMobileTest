@@ -1,8 +1,8 @@
 package dev.dmanluc.openbankmobiletest.data.local.datasource
 
 import dev.dmanluc.openbankmobiletest.data.local.dao.CharactersDao
-import dev.dmanluc.openbankmobiletest.data.local.toDatabaseEntity
-import dev.dmanluc.openbankmobiletest.data.local.toDomainModel
+import dev.dmanluc.openbankmobiletest.data.local.mapper.toDatabaseEntity
+import dev.dmanluc.openbankmobiletest.data.local.mapper.toDomainModel
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 
 class CharactersLocalDataSourceImpl(

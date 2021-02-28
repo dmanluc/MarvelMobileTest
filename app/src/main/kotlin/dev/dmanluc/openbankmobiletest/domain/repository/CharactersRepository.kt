@@ -5,7 +5,7 @@ import dev.dmanluc.openbankmobiletest.domain.model.ApiError
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import kotlinx.coroutines.flow.Flow
 
-interface MarvelCharactersRepository {
+interface CharactersRepository {
 
     suspend fun getCharacters(pagingOffset: Int): Flow<Either<ApiError, List<Character>>>
 

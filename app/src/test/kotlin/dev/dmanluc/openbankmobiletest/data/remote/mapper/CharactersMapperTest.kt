@@ -1,7 +1,6 @@
-package dev.dmanluc.openbankmobiletest.data.remote.api.mapper
+package dev.dmanluc.openbankmobiletest.data.remote.mapper
 
 import com.google.gson.GsonBuilder
-import dev.dmanluc.openbankmobiletest.data.remote.mapper.toDomainModel
 import dev.dmanluc.openbankmobiletest.utils.MockDataProvider
 import junit.framework.Assert.assertEquals
 import org.hamcrest.MatcherAssert.assertThat

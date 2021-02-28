@@ -5,15 +5,15 @@ import dev.dmanluc.openbankmobiletest.data.local.datasource.CharactersLocalDataS
 import dev.dmanluc.openbankmobiletest.domain.model.ApiError
 import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSource
 import dev.dmanluc.openbankmobiletest.domain.model.Character
-import dev.dmanluc.openbankmobiletest.domain.repository.MarvelCharactersRepository
+import dev.dmanluc.openbankmobiletest.domain.repository.CharactersRepository
 import dev.dmanluc.openbankmobiletest.utils.orFalse
 import kotlinx.coroutines.flow.Flow
 
-class MarvelCharactersRepositoryImpl(
-    private val localDataSource: CharactersLocalDataSource,
-    private val remoteDataSource: CharactersRemoteDataSource,
-    private val dataSourceManager: CharactersDataSourceManager
-) : MarvelCharactersRepository {
+class CharactersRepositoryImpl(
+    private val charactersLocalDataSource: CharactersLocalDataSource,
+    private val charactersRemoteDataSource: CharactersRemoteDataSource,
+    private val dataSourceManager: DataSourceManager
+) : CharactersRepository {
 
     override suspend fun getCharacters(pagingOffset: Int): Flow<Either<ApiError, List<Character>>> {
         return dataSourceManager.performDataRequest(
@@ -25,15 +25,15 @@ class MarvelCharactersRepositoryImpl(
     }
 
     private suspend fun loadCharactersFromLocal(pagingOffset: Int): List<Character> {
-        return localDataSource.getCharacters(pagingOffset)
+        return charactersLocalDataSource.getCharacters(pagingOffset)
     }
 
     private suspend fun fetchCharactersFromRemote(pagingOffset: Int): List<Character> {
-        return remoteDataSource.getCharacters(pagingOffset)
+        return charactersRemoteDataSource.getCharacters(pagingOffset)
     }
 
     private suspend fun saveRemoteDataToLocal(characters: List<Character>) {
-        localDataSource.saveCharacters(characters)
+        charactersLocalDataSource.saveCharacters(characters)
     }
 
     private fun checkIfRemoteSourceFetching(savedCharactersFromLocalDataSource: List<Character>?): Boolean {

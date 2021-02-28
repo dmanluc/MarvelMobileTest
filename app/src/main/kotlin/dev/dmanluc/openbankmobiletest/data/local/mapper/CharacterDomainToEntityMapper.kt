@@ -1,4 +1,4 @@
-package dev.dmanluc.openbankmobiletest.data.local
+package dev.dmanluc.openbankmobiletest.data.local.mapper
 
 import dev.dmanluc.openbankmobiletest.data.local.entity.CharacterEntity
 import dev.dmanluc.openbankmobiletest.domain.model.Character

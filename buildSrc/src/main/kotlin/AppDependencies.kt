@@ -46,6 +46,8 @@ object AppDependencies {
     private val lottie = "com.airbnb.android:lottie:${Versions.lottie}"
 
     //Testing
+    private val kotlinCoroutinesTest =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutinesTest}"
     private val junit = "junit:junit:${Versions.junit}"
     private val mockWebServer = "com.squareup.okhttp:mockwebserver:${Versions.mockWebServer}"
     private val mockk = "io.mockk:mockk:${Versions.mockk}"
@@ -62,6 +64,7 @@ object AppDependencies {
     private val espressoContrib = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     private val espressoIdlingResource =
         "androidx.test.espresso:espresso-idling-resource:${Versions.espresso}"
+    private val kotestArrow = "io.kotlintest:kotlintest-assertions-arrow:${Versions.kotestArrow}"
 
     val appLibraries = arrayListOf<String>().apply {
         add(kotlinStdLib)
@@ -102,8 +105,10 @@ object AppDependencies {
     }
 
     val testLibraries = arrayListOf<String>().apply {
+        add(kotlinCoroutinesTest)
         add(junit)
         add(mockWebServer)
+        add(kotestArrow)
     }
 
     val kaptLibraries = arrayListOf<String>().apply {
