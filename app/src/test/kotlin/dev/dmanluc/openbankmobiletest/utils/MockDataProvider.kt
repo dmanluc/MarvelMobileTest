@@ -3,6 +3,7 @@ package dev.dmanluc.openbankmobiletest.utils
 import androidx.annotation.VisibleForTesting
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import dev.dmanluc.openbankmobiletest.data.remote.model.MarvelCharactersApiResponse
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import java.io.File
 
@@ -17,13 +18,20 @@ import java.io.File
 object MockDataProvider {
 
     const val MOCK_CHARACTERS_JSON_FILENAME = "mockCharactersApiResponse.json"
+    const val MOCK_EMPTY_CHARACTERS_JSON_FILENAME = "mockEmptyCharactersApiResponse.json"
     private val gson = GsonBuilder().create()
 
     fun createMockCharacterList(): List<Character> {
         return parseMockJson(MOCK_CHARACTERS_JSON_FILENAME)
     }
 
-    fun createMockMarketProductsApiResponse() = readJsonAsString(MOCK_CHARACTERS_JSON_FILENAME)
+    fun createMockCharactersApiResponse(): MarvelCharactersApiResponse {
+        return parseMockJson(MOCK_CHARACTERS_JSON_FILENAME)
+    }
+
+    fun createMockEmptyCharactersApiResponse(): MarvelCharactersApiResponse {
+        return parseMockJson(MOCK_EMPTY_CHARACTERS_JSON_FILENAME)
+    }
 
     fun readJsonAsString(path: String): String {
         val uri = this.javaClass.classLoader?.getResource(path)
@@ -35,5 +43,4 @@ object MockDataProvider {
         val jsonAsString = readJsonAsString(jsonPath)
         return gson.fromJson(jsonAsString, object : TypeToken<T>() {}.type)
     }
-
 }
