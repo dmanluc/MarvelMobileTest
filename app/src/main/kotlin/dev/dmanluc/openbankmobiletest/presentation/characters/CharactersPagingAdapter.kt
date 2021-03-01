@@ -127,9 +127,11 @@ class CharactersPagingAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
-    private fun removePagingLoading(position: Int) {
+    fun removePagingLoading(position: Int? = null) {
+        if (itemCount == 0) return
+
         isLoading = false
-        val checkedPosition = position.coerceAtLeast(0)
+        val checkedPosition = position ?: itemCount - 1
         items.removeAt(checkedPosition)
         notifyItemRemoved(checkedPosition)
     }

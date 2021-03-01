@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Marvel Characters</string>
 
+    <string name="no_internet_connection_text">It seems you are offline. No new data can be loaded"</string>
+    <string name="error_fetching_characters_text">Sorry but an error happened when loading characters</string>
+    <string name="retry_loading_action_text">Retry</string>
+
     <string name="character_detail_featured_comics_text">Comics</string>
     <string name="character_detail_featured_events_text">Events</string>
     <string name="character_detail_featured_stories_text">Stories</string>

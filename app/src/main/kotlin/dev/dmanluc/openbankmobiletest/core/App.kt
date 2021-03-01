@@ -28,7 +28,6 @@ class App : Application() {
                     createNetworkModule(BuildConfig.MARVEL_BASE_URL),
                     repositoryModule,
                     charactersModule,
-                    characterDetailModule
                 )
             )
             koin.createRootScope()

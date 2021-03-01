@@ -2,6 +2,8 @@ package dev.dmanluc.openbankmobiletest.presentation.characterdetail
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialContainerTransform
 import dev.dmanluc.openbankmobiletest.R
@@ -9,10 +11,7 @@ import dev.dmanluc.openbankmobiletest.databinding.FragmentCharacterDetailBinding
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.domain.model.CharacterUrlType
 import dev.dmanluc.openbankmobiletest.domain.model.UrlItem
-import dev.dmanluc.openbankmobiletest.presentation.base.BaseFragment
-import dev.dmanluc.openbankmobiletest.presentation.base.BaseViewModel
 import dev.dmanluc.openbankmobiletest.utils.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
@@ -21,18 +20,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * Second screen of the app flow which shows selected character's details
  *
  */
-class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail) {
-
-    private val viewModel: CharacterDetailFragmentViewModel by viewModel()
+class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
 
     private val binding by viewBinding(FragmentCharacterDetailBinding::bind)
 
     private val args: CharacterDetailFragmentArgs by navArgs()
 
-    override fun getViewModel(): BaseViewModel = viewModel
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.navHostFragment
@@ -63,7 +58,8 @@ class CharacterDetailFragment : BaseFragment(R.layout.fragment_character_detail)
             characterDetailEventsNumber.text = character.eventsSummary.available.toString()
             characterDetailStoriesNumber.text = character.storiesSummary.available.toString()
 
-            character.urls?.let(::setupCharacterLinkResourcesNavigation) ?: characterDetailAdditionalInfoTitle.hide()
+            character.urls?.let(::setupCharacterLinkResourcesNavigation)
+                ?: characterDetailAdditionalInfoTitle.hide()
         }
     }
 

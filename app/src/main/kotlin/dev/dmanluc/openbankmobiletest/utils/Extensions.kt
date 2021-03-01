@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.MainThread
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
@@ -22,9 +23,9 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.signature.ObjectKey
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.core.GlideApp
 import java.security.MessageDigest
@@ -67,34 +68,20 @@ fun Boolean?.orFalse(): Boolean = this ?: false
 
 fun Int?.orZero() = this ?: 0
 
-fun Fragment.showSnackbar(snackbarText: String, timeLength: Int) {
+fun Fragment.showSnackbar(
+    @StringRes snackbarTextResId: Int,
+    @BaseTransientBottomBar.Duration timeLength: Int,
+    @StringRes snackbarActionTextResId: Int? = null,
+    snackbarActionListener: () -> Unit = {}
+) {
     activity?.let {
-        Snackbar.make(it.findViewById(android.R.id.content), snackbarText, timeLength).show()
+        Snackbar.make(it.findViewById(android.R.id.content), it.getString(snackbarTextResId), timeLength).apply {
+            snackbarActionTextResId?.let {
+                setAction(snackbarActionTextResId) { snackbarActionListener() }
+            }
+            show()
+        }
     }
-}
-
-fun Fragment.setupSnackbarWithStringResId(
-    lifecycleOwner: LifecycleOwner,
-    snackbarEvent: LiveData<Event<Int>>,
-    timeLength: Int
-) {
-    snackbarEvent.observe(lifecycleOwner, { event ->
-        event.getContentIfNotHandled()?.let { res ->
-            context?.let { showSnackbar(it.getString(res), timeLength) }
-        }
-    })
-}
-
-fun Fragment.setupSnackbarWithStringLiteral(
-    lifecycleOwner: LifecycleOwner,
-    snackbarEvent: LiveData<Event<String>>,
-    timeLength: Int
-) {
-    snackbarEvent.observe(lifecycleOwner, { event ->
-        event.getContentIfNotHandled()?.let { literal ->
-            context?.let { showSnackbar(literal, timeLength) }
-        }
-    })
 }
 
 @MainThread
