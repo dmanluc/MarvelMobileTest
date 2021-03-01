@@ -24,6 +24,8 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.signature.ObjectKey
 import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import dev.dmanluc.openbankmobiletest.R
@@ -70,12 +72,16 @@ fun Int?.orZero() = this ?: 0
 
 fun Fragment.showSnackbar(
     @StringRes snackbarTextResId: Int,
-    @BaseTransientBottomBar.Duration timeLength: Int,
     @StringRes snackbarActionTextResId: Int? = null,
-    snackbarActionListener: () -> Unit = {}
-) {
-    activity?.let {
-        Snackbar.make(it.findViewById(android.R.id.content), it.getString(snackbarTextResId), timeLength).apply {
+    snackbarActionListener: () -> Unit = {},
+    @BaseTransientBottomBar.Duration timeLength: Int = 3000,
+    ) {
+    view?.let {
+        Snackbar.make(
+            it,
+            activity?.getString(snackbarTextResId).orEmpty(),
+            timeLength
+        ).apply {
             snackbarActionTextResId?.let {
                 setAction(snackbarActionTextResId) { snackbarActionListener() }
             }
@@ -111,30 +117,31 @@ fun ImageView.loadImage(
     onSizeReady: (Int, Int) -> Unit = { width, height -> }
 ) {
 
-    GlideApp.with(this.context).load(Uri.parse(path)).listener(object : RequestListener<Drawable> {
-        override fun onLoadFailed(
-            e: GlideException?,
-            model: Any?,
-            target: Target<Drawable>?,
-            isFirstResource: Boolean
-        ): Boolean {
-            onExceptionDelegate()
-            return false
-        }
+    GlideApp.with(this.context).load(Uri.parse(path))
+        .listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                onExceptionDelegate()
+                return false
+            }
 
-        override fun onResourceReady(
-            resource: Drawable?,
-            model: Any?,
-            target: Target<Drawable>?,
-            dataSource: com.bumptech.glide.load.DataSource?,
-            isFirstResource: Boolean
-        ): Boolean {
-            onResourceReadyDelegate()
-            resource as? BitmapDrawable ?: return false
-            onSizeReady(resource.intrinsicWidth, resource.intrinsicHeight)
-            return false
-        }
-    })
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: com.bumptech.glide.load.DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                onResourceReadyDelegate()
+                resource as? BitmapDrawable ?: return false
+                onSizeReady(resource.intrinsicWidth, resource.intrinsicHeight)
+                return false
+            }
+        })
         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .signature(ObjectKey(with(System.currentTimeMillis()) {
             if (daysWhileValidCache > 0) {

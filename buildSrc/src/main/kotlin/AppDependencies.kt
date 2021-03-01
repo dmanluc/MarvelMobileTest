@@ -63,7 +63,7 @@ object AppDependencies {
         "androidx.fragment:fragment-testing:${Versions.androidXFragmentTesting}"
     private val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
     private val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
-    private val espressoContrib = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    private val espressoContrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso}"
     private val espressoIdlingResource =
         "androidx.test.espresso:espresso-idling-resource:${Versions.espresso}"
     private val kotestArrow = "io.kotlintest:kotlintest-assertions-arrow:${Versions.kotestArrow}"

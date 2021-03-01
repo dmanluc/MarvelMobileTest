@@ -18,6 +18,7 @@ android {
         versionName = AppConfig.versionName
 
         testInstrumentationRunner(AppConfig.androidTestInstrumentation)
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
     }
 
     buildFeatures {
@@ -69,6 +70,10 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    testOptions {
+        animationsDisabled = true
     }
 }
 

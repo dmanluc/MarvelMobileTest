@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_NONE
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
+import androidx.test.espresso.idling.CountingIdlingResource
 import com.google.android.material.transition.MaterialElevationScale
 import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.databinding.FragmentCharacterListBinding
@@ -57,6 +58,8 @@ class CharactersFragment : Fragment(R.layout.fragment_character_list) {
         )
     }
 
+    val countingIdlingResource = CountingIdlingResource("CharactersFragment")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -78,6 +81,7 @@ class CharactersFragment : Fragment(R.layout.fragment_character_list) {
     }
 
     private fun onScrollEndAction(totalItemCount: Int) {
+        countingIdlingResource.increment()
         performCharactersPagingLoad(totalItemCount)
     }
 
@@ -89,6 +93,7 @@ class CharactersFragment : Fragment(R.layout.fragment_character_list) {
     private fun setupUi() {
         viewModel.charactersViewSateLiveData.observeEvent(viewLifecycleOwner) { viewState ->
             handleViewState(viewState)
+            if (countingIdlingResource.isIdleNow.not()) countingIdlingResource.decrement()
         }
         binding.charactersSwipeRefreshLayout.setOnRefreshListener {
             viewModel.refreshCharacters()
@@ -106,7 +111,7 @@ class CharactersFragment : Fragment(R.layout.fragment_character_list) {
             CharactersViewState.EmptyCharactersLoaded -> {
                 hideRefreshLoadingIndicators()
                 val isPreviousDataShown = charactersAdapter.itemCount != 0
-                handleLoadingErrorView(isPreviousDataShown)
+                handleEmptyView(isPreviousDataShown)
             }
             is CharactersViewState.ErrorLoadingCharactersOnRefresh -> {
                 hideRefreshLoadingIndicators()
@@ -116,8 +121,8 @@ class CharactersFragment : Fragment(R.layout.fragment_character_list) {
             is CharactersViewState.ErrorLoadingCharactersOnPaging -> {
                 hidePagingLoadingIndicators()
                 showSnackbar(R.string.error_fetching_characters_text,
-                    timeLength = 6000,
-                    R.string.retry_loading_action_text, snackbarActionListener = {
+                    R.string.retry_loading_action_text,
+                    snackbarActionListener = {
                         performCharactersPagingLoad(state.fromOffset)
                     })
             }
@@ -130,8 +135,8 @@ class CharactersFragment : Fragment(R.layout.fragment_character_list) {
             is CharactersViewState.ErrorNoConnectivityOnPaging -> {
                 hidePagingLoadingIndicators()
                 showSnackbar(R.string.no_internet_connection_text,
-                    timeLength = 6000,
-                    R.string.retry_loading_action_text, snackbarActionListener = {
+                    R.string.retry_loading_action_text,
+                    snackbarActionListener = {
                         performCharactersPagingLoad(state.fromOffset)
                     })
             }
@@ -157,12 +162,24 @@ class CharactersFragment : Fragment(R.layout.fragment_character_list) {
         viewModel.refreshCharacters()
     }
 
+    private fun handleEmptyView(isPreviousDataShown: Boolean) {
+        if (!isPreviousDataShown) {
+            val errorData = ErrorDataItem(
+                R.drawable.ic_empty_result,
+                R.string.empty_characters_view_text,
+                onErrorAction = ::performRefreshCharactersLoad
+            )
+            binding.errorView.setData(errorData)
+            binding.errorView.show()
+        }
+    }
+
     private fun handleLoadingErrorView(isPreviousDataShown: Boolean) {
         if (isPreviousDataShown) {
             binding.errorView.hide()
             showSnackbar(R.string.error_fetching_characters_text,
-                timeLength = 6000,
-                R.string.retry_loading_action_text, snackbarActionListener = {
+                R.string.retry_loading_action_text,
+                snackbarActionListener = {
                     performRefreshCharactersLoad()
                 })
         } else {
@@ -180,8 +197,8 @@ class CharactersFragment : Fragment(R.layout.fragment_character_list) {
         if (isPreviousDataShown) {
             binding.errorView.hide()
             showSnackbar(R.string.no_internet_connection_text,
-                timeLength = 6000,
-                R.string.retry_loading_action_text, snackbarActionListener = {
+                R.string.retry_loading_action_text,
+                snackbarActionListener = {
                     performRefreshCharactersLoad()
                 })
         } else {
