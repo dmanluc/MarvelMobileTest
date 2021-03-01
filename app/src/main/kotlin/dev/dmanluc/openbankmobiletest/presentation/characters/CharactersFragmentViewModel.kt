@@ -11,6 +11,7 @@ import dev.dmanluc.openbankmobiletest.domain.usecase.GetCharactersUseCase
 import dev.dmanluc.openbankmobiletest.utils.DispatcherProvider
 import dev.dmanluc.openbankmobiletest.utils.Event
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
 class CharactersFragmentViewModel(
@@ -18,7 +19,7 @@ class CharactersFragmentViewModel(
     private val appDispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val mutableCharactersViewStateLiveData by lazy { MutableLiveData<Event<CharactersViewState>>() }
+    private val mutableCharactersViewStateLiveData: MutableLiveData<Event<CharactersViewState>> = MutableLiveData()
     val charactersViewSateLiveData: LiveData<Event<CharactersViewState>> get() = mutableCharactersViewStateLiveData
 
     init {
@@ -27,17 +28,19 @@ class CharactersFragmentViewModel(
     }
 
     fun loadCharacters(pagingOffset: Int = 0, forceRefresh: Boolean = false) {
-        viewModelScope.launch(appDispatchers.io()) {
-            getCharactersUseCase(pagingOffset, forceRefresh).collect { value ->
-                value.fold(ifLeft = { apiError ->
-                    handleError(
-                        pagingOffset,
-                        apiError
-                    )
-                }) { characterList ->
-                    handleCharactersResult(pagingOffset, characterList)
+        viewModelScope.launch(appDispatchers.main()) {
+            getCharactersUseCase(pagingOffset, forceRefresh)
+                .flowOn(appDispatchers.io())
+                .collect { value ->
+                    value.fold(ifLeft = { apiError ->
+                        handleError(
+                            pagingOffset,
+                            apiError
+                        )
+                    }) { characterList ->
+                        handleCharactersResult(pagingOffset, characterList)
+                    }
                 }
-            }
         }
     }
 
@@ -50,14 +53,14 @@ class CharactersFragmentViewModel(
             pagingOffset == 0 -> {
                 if (characters.isEmpty()) {
                     val newStateEvent = Event(CharactersViewState.EmptyCharactersLoaded)
-                    mutableCharactersViewStateLiveData.postValue(newStateEvent)
+                    mutableCharactersViewStateLiveData.value = newStateEvent
                 } else {
                     val newStateEvent = Event(
                         CharactersViewState.CharactersLoaded(
                             PagingLoadTrackingState.Refresh(characters)
                         )
                     )
-                    mutableCharactersViewStateLiveData.postValue(newStateEvent)
+                    mutableCharactersViewStateLiveData.value = newStateEvent
                 }
             }
             characters.isNotEmpty() -> {
@@ -66,7 +69,7 @@ class CharactersFragmentViewModel(
                         PagingLoadTrackingState.Append(characters)
                     )
                 )
-                mutableCharactersViewStateLiveData.postValue(newStateEvent)
+                mutableCharactersViewStateLiveData.value = newStateEvent
             }
             else -> {
                 val newStateEvent = Event(
@@ -74,7 +77,7 @@ class CharactersFragmentViewModel(
                         PagingLoadTrackingState.EndOfPagination
                     )
                 )
-                mutableCharactersViewStateLiveData.postValue(newStateEvent)
+                mutableCharactersViewStateLiveData.value = newStateEvent
             }
         }
     }
@@ -87,7 +90,7 @@ class CharactersFragmentViewModel(
                 } else {
                     Event(CharactersViewState.ErrorNoConnectivityOnRefresh)
                 }
-                mutableCharactersViewStateLiveData.postValue(newErrorEvent)
+                mutableCharactersViewStateLiveData.value = newErrorEvent
             }
             else -> {
                 val newErrorEvent = if (pagingOffset != 0) {
@@ -95,7 +98,7 @@ class CharactersFragmentViewModel(
                 } else {
                     Event(CharactersViewState.ErrorLoadingCharactersOnRefresh(error))
                 }
-                mutableCharactersViewStateLiveData.postValue(newErrorEvent)
+                mutableCharactersViewStateLiveData.value = newErrorEvent
             }
         }
     }
