@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.gson.GsonBuilder
 import dev.dmanluc.openbankmobiletest.data.local.dao.CharactersDao
 import dev.dmanluc.openbankmobiletest.utils.MockDataProvider
 import kotlinx.coroutines.runBlocking
@@ -15,10 +16,14 @@ import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
+import org.koin.test.AutoCloseKoinTest
+import org.koin.test.get
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class CharactersDaoTest {
+class CharactersDaoTest : AutoCloseKoinTest() {
 
     private lateinit var charactersDao: CharactersDao
     private lateinit var database: AppDatabase
@@ -26,11 +31,27 @@ class CharactersDaoTest {
     private val mockCharacterEntities = MockDataProvider.createMockCharacterEntities()
 
     @Before
-    fun createDb() {
-        val context = ApplicationProvider.getApplicationContext<Context>()
+    fun setUp() {
+        configureDi()
+    }
 
-        database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        charactersDao = database.charactersDao()
+    private fun configureDi() {
+        startKoin { modules(listOf(configureLocalModuleTest(ApplicationProvider.getApplicationContext()))) }
+        database = get()
+        charactersDao = get()
+    }
+
+    private fun configureLocalModuleTest(context: Context) = module {
+        single {
+            Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
+                .build()
+        }
+
+        single {
+            GsonBuilder().create()
+        }
+
+        factory { get<AppDatabase>().charactersDao() }
     }
 
     @After
