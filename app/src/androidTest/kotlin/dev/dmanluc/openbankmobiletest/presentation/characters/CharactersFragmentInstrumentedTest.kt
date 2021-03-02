@@ -30,6 +30,8 @@ import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.domain.repository.CharactersRepository
 import dev.dmanluc.openbankmobiletest.domain.usecase.GetCharactersUseCase
 import dev.dmanluc.openbankmobiletest.espressoRecyclerViewActions.RecyclerViewItemCountAssertion.Companion.withItemCount
+import dev.dmanluc.openbankmobiletest.presentation.utils.isGone
+import dev.dmanluc.openbankmobiletest.presentation.utils.isVisible
 import dev.dmanluc.openbankmobiletest.utils.DispatcherProvider
 import dev.dmanluc.openbankmobiletest.utils.MockDataProvider
 import io.mockk.coEvery
@@ -426,14 +428,6 @@ class CharactersFragmentInstrumentedTest : AutoCloseKoinTest() {
             Navigation.setViewNavController(fragment.requireView(), mockNavController)
         }
         return mockNavController
-    }
-
-    private fun ViewInteraction.isGone() = getViewAssertion(ViewMatchers.Visibility.GONE)
-
-    private fun ViewInteraction.isVisible() = getViewAssertion(ViewMatchers.Visibility.VISIBLE)
-
-    private fun getViewAssertion(visibility: ViewMatchers.Visibility): ViewAssertion? {
-        return matches(ViewMatchers.withEffectiveVisibility(visibility))
     }
 
     private fun isSwipeLayoutRefreshing(): Matcher<View> {

@@ -66,6 +66,7 @@ object AppDependencies {
     private val espressoContrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso}"
     private val espressoIdlingResource =
         "androidx.test.espresso:espresso-idling-resource:${Versions.espresso}"
+    private val espressoIntents = "androidx.test.espresso:espresso-intents:${Versions.espresso}"
     private val kotestArrow = "io.kotlintest:kotlintest-assertions-arrow:${Versions.kotestArrow}"
 
     val appLibraries = arrayListOf<String>().apply {
@@ -97,14 +98,15 @@ object AppDependencies {
         add(androidXCoreTesting)
         add(androidXJunitTesting)
         add(androidXFragmentTesting)
-        add(espressoCore)
-        add(espressoContrib)
         add(espressoIdlingResource)
         add(swipeRefreshLayout)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {
         add(mockkAndroid)
+        add(espressoCore)
+        add(espressoContrib)
+        add(espressoIntents)
     }
 
     val testLibraries = arrayListOf<String>().apply {
