@@ -98,13 +98,13 @@ object AppDependencies {
         add(androidXCoreTesting)
         add(androidXJunitTesting)
         add(androidXFragmentTesting)
+        add(espressoCore)
         add(espressoIdlingResource)
         add(swipeRefreshLayout)
     }
 
     val androidTestLibraries = arrayListOf<String>().apply {
         add(mockkAndroid)
-        add(espressoCore)
         add(espressoContrib)
         add(espressoIntents)
     }

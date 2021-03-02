@@ -22,7 +22,7 @@ class MarketApiTest : BaseApiTest() {
                 assertEquals(HttpURLConnection.HTTP_OK, code?.toInt())
                 assertEquals(true, data != null)
                 assertEquals(true, data?.results != null)
-                assertEquals(4, data?.results?.size)
+                assertEquals(20, data?.results?.size)
             }
         }
     }
