@@ -55,9 +55,6 @@ class CharactersPagingAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is LoadingCharactersViewHolder -> {
-                // TODO
-            }
             is CharacterItemViewHolder -> {
                 (items[position].item as? Character)?.let {
                     holder.bindCharacter(

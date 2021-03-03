@@ -24,8 +24,6 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.signature.ObjectKey
 import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
-import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import dev.dmanluc.openbankmobiletest.R
@@ -40,7 +38,6 @@ import java.util.*
  *
  * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
  * @version  1
- *@since    29/10/2018.
  */
 fun String.fromUTCTimeToDate(): Date? {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
@@ -68,14 +65,12 @@ fun String.hashMd5(): String {
 
 fun Boolean?.orFalse(): Boolean = this ?: false
 
-fun Int?.orZero() = this ?: 0
-
 fun Fragment.showSnackbar(
     @StringRes snackbarTextResId: Int,
     @StringRes snackbarActionTextResId: Int? = null,
     snackbarActionListener: () -> Unit = {},
-    @BaseTransientBottomBar.Duration timeLength: Int = 3000,
-    ) {
+    @BaseTransientBottomBar.Duration timeLength: Int = 5000,
+) {
     view?.let {
         Snackbar.make(
             it,
@@ -164,10 +159,6 @@ fun View.show() {
 
 fun View.hide() {
     visibility = View.GONE
-}
-
-fun View.visible(value: Boolean) {
-    if (value) show() else hide()
 }
 
 fun TextView.textOrHide(text: String?) {
