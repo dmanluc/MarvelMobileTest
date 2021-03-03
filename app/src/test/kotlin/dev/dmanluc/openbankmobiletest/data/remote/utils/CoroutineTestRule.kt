@@ -6,8 +6,16 @@ import kotlinx.coroutines.test.*
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
+/**
+ * @author Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version 1
+ *
+ * Definition of a testing rule to be used when testing coroutines to take control of what dispatcher to be used when launching them
+ *
+ */
 @ExperimentalCoroutinesApi
-class CoroutineTestRule(val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()) : TestWatcher() {
+class CoroutineTestRule(val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()) :
+    TestWatcher() {
 
     val testDispatcherProvider = object : DispatcherProvider {
         override fun default(): CoroutineDispatcher = testDispatcher

@@ -4,6 +4,13 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
+/**
+ * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version  1
+ *
+ *  Definition of a domain model to represent a Marvel character
+ *
+ */
 @Parcelize
 data class Character(
     val id: String,

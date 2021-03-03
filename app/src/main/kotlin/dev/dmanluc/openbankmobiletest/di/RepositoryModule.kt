@@ -7,8 +7,8 @@ import dev.dmanluc.openbankmobiletest.data.local.datasource.CharactersLocalDataS
 import dev.dmanluc.openbankmobiletest.data.remote.api.MarvelApi
 import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSource
 import dev.dmanluc.openbankmobiletest.data.remote.datasource.CharactersRemoteDataSourceImpl
-import dev.dmanluc.openbankmobiletest.data.repository.DataSourceManager
 import dev.dmanluc.openbankmobiletest.data.repository.CharactersRepositoryImpl
+import dev.dmanluc.openbankmobiletest.data.repository.DataSourceManager
 import dev.dmanluc.openbankmobiletest.domain.repository.CharactersRepository
 import org.koin.core.module.Module
 import org.koin.dsl.module

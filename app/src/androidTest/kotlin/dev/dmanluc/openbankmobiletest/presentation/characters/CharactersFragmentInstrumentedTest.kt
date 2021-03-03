@@ -16,7 +16,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.idling.CountingIdlingResource
 import androidx.test.espresso.matcher.BoundedMatcher
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -38,7 +37,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOf
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Description
@@ -54,11 +52,8 @@ import org.koin.dsl.module
 import org.koin.test.AutoCloseKoinTest
 
 /**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- *
- *
+ * @author Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version 1
  */
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -461,9 +456,9 @@ class CharactersFragmentInstrumentedTest : AutoCloseKoinTest() {
 
     private fun onSnackbar(@StringRes withText: Int): ViewInteraction {
         return onView(
-            CoreMatchers.allOf(
+            allOf(
                 isDescendantOfA(isAssignableFrom(SnackbarContentLayout::class.java)),
-                ViewMatchers.withText(withText)
+                withText(withText)
             )
         )
     }
@@ -472,7 +467,7 @@ class CharactersFragmentInstrumentedTest : AutoCloseKoinTest() {
         return onView(
             allOf(
                 isDescendantOfA(isAssignableFrom(SnackbarContentLayout::class.java)),
-                ViewMatchers.withText(withText)
+                withText(withText)
             )
         )
     }

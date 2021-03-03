@@ -3,6 +3,13 @@ package dev.dmanluc.openbankmobiletest.presentation.characters
 import dev.dmanluc.openbankmobiletest.domain.model.ApiError
 import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTrackingState
 
+/**
+ * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version  1
+ *
+ *  Definition of a hierachy of possible character list screen
+ *
+ */
 sealed class CharactersViewState {
     object FirstLoading : CharactersViewState()
     object EmptyCharactersLoaded : CharactersViewState()

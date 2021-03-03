@@ -24,7 +24,8 @@ internal fun MarvelCharactersApiResponse.toDomainModel(gson: Gson): List<Charact
             }.enforceHttps().orEmpty(),
             urls = characterItem.urls?.map { urlItemResponse ->
                 UrlItem(
-                    type = gson.parseEnum(urlItemResponse.type.orEmpty()) ?: CharacterUrlType.UNDEFINED,
+                    type = gson.parseEnum(urlItemResponse.type.orEmpty())
+                        ?: CharacterUrlType.UNDEFINED,
                     url = urlItemResponse.url.orEmpty()
                 )
             },

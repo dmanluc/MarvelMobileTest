@@ -30,11 +30,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- *
- *
+ * @author Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version 1
  */
 @RunWith(AndroidJUnit4::class)
 @LargeTest

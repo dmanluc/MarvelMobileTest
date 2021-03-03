@@ -2,10 +2,11 @@ package dev.dmanluc.openbankmobiletest.presentation.characters
 
 import androidx.recyclerview.widget.DiffUtil
 
+@Suppress("UNCHECKED_CAST")
 class PagingAdapterDiffUtils<ITEM>(
     private val oldList: List<PagingAdapterItem<*>>,
     private val newList: List<PagingAdapterItem<*>>,
-    val comparator: ((ITEM, ITEM) -> Boolean)?,
+    private val comparator: ((ITEM, ITEM) -> Boolean)?,
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size

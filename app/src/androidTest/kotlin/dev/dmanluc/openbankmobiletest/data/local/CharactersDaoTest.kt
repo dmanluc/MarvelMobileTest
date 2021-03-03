@@ -22,6 +22,10 @@ import org.koin.test.AutoCloseKoinTest
 import org.koin.test.get
 import java.io.IOException
 
+/**
+ * @author Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version 1
+ */
 @RunWith(AndroidJUnit4::class)
 class CharactersDaoTest : AutoCloseKoinTest() {
 

@@ -12,6 +12,13 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version  1
+ *
+ *  Definition of a manager which handles both local and remote data source fetching mechanism
+ *
+ */
 class DataSourceManager(
     private val gson: Gson
 ) {

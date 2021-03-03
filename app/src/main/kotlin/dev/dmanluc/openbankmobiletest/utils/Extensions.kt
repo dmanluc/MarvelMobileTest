@@ -109,7 +109,7 @@ fun ImageView.loadImage(
     onExceptionDelegate: () -> Unit = {},
     onResourceReadyDelegate: () -> Unit = {},
     daysWhileValidCache: Int = 1,
-    onSizeReady: (Int, Int) -> Unit = { width, height -> }
+    onSizeReady: (Int, Int) -> Unit = { _, _ -> }
 ) {
 
     GlideApp.with(this.context).load(Uri.parse(path))

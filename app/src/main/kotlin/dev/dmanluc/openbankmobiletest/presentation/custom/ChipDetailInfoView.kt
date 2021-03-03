@@ -4,10 +4,16 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import androidx.cardview.widget.CardView
 import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.databinding.ViewChipDetailInfoBinding
 
+/**
+ * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version  1
+ *
+ *  Definition of a custom view to show character stats in a better user-friendly way
+ *
+ */
 class ChipDetailInfoView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

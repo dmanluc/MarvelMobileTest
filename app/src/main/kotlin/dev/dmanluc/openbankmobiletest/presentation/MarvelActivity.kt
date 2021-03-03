@@ -10,6 +10,14 @@ import dev.dmanluc.openbankmobiletest.R
 import dev.dmanluc.openbankmobiletest.databinding.ActivityMainBinding
 import dev.dmanluc.openbankmobiletest.utils.viewBinding
 
+/**
+ * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version  1
+ *
+ * Single app activity which will host two fragments for two screens: the first one showing
+ * the character list and the second one to show selected character's details from previous screen clicked one
+ *
+ */
 class MarvelActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -32,7 +40,8 @@ class MarvelActivity : AppCompatActivity() {
             show()
         }
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
 

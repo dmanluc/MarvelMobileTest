@@ -2,8 +2,6 @@ package dev.dmanluc.openbankmobiletest.data.local.dao
 
 import androidx.room.*
 import dev.dmanluc.openbankmobiletest.data.local.entity.CharacterEntity
-import dev.dmanluc.openbankmobiletest.domain.model.Character
-import kotlinx.coroutines.flow.Flow
 
 /**
  * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>

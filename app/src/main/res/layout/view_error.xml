@@ -10,7 +10,7 @@
         android:id="@+id/errorImage"
         android:layout_width="150dp"
         android:layout_height="0dp"
-        android:src="@drawable/ic_empty_result"
+        android:src="@drawable/ic_no_connectivity"
         app:layout_constraintBottom_toTopOf="@id/errorText"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"

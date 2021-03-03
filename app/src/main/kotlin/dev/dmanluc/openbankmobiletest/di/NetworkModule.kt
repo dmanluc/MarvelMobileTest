@@ -10,7 +10,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-
+/**
+ * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version  1
+ *
+ * Koin DI module for remote network based dependencies
+ *
+ */
 fun createNetworkModule(baseUrl: String) = module {
     single { provideGson() }
     single { provideOkHttpClient() }

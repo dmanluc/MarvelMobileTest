@@ -14,12 +14,20 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
+/**
+ * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version  1
+ *
+ *  Viewmodel for characters fragment which exposes characters screen view state
+ *
+ */
 class CharactersFragmentViewModel(
     private val getCharactersUseCase: GetCharactersUseCase,
     private val appDispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val mutableCharactersViewStateLiveData: MutableLiveData<Event<CharactersViewState>> = MutableLiveData()
+    private val mutableCharactersViewStateLiveData: MutableLiveData<Event<CharactersViewState>> =
+        MutableLiveData()
     val charactersViewSateLiveData: LiveData<Event<CharactersViewState>> get() = mutableCharactersViewStateLiveData
 
     init {

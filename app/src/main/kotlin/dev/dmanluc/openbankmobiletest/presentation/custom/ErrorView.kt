@@ -6,6 +6,13 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import dev.dmanluc.openbankmobiletest.databinding.ViewErrorBinding
 
+/**
+ * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version  1
+ *
+ *  Definition of a custom view to show error states
+ *
+ */
 class ErrorView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

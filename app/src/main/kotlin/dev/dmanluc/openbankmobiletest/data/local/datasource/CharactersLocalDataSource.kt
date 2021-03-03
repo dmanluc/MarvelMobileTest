@@ -1,11 +1,12 @@
 package dev.dmanluc.openbankmobiletest.data.local.datasource
 
 import dev.dmanluc.openbankmobiletest.domain.model.Character
-import kotlinx.coroutines.flow.Flow
 
 /**
  * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
  * @version  1
+ *
+ *  Definition of a local source of data to manage characters data from a local app database
  */
 interface CharactersLocalDataSource {
 

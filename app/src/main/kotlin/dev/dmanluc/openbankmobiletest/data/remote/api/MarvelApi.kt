@@ -4,6 +4,13 @@ import dev.dmanluc.openbankmobiletest.data.remote.model.MarvelCharactersApiRespo
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
+ * @version  1
+ *
+ * Marvel characters API definition
+ *
+ */
 interface MarvelApi {
 
     @GET("/v1/public/characters")
