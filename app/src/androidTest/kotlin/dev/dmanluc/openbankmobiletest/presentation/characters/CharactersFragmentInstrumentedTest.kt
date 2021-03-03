@@ -280,6 +280,21 @@ class CharactersFragmentInstrumentedTest : AutoCloseKoinTest() {
     }
 
     @Test
+    fun loadPaginatedCharactersOnScroll_whenReachedEndOfPagination_shouldNotAddCharactersToList() {
+        coEvery {
+            mockCharactersRepository.getCharacters(any(), any())
+        } returns flowOf(mockCharacters.right()) andThen flowOf(emptyList<Character>().right())
+
+        launchFragment()
+
+        onView(withId(R.id.lottieLoadingCharacters)).isGone()
+        onView(withId(R.id.errorView)).isGone()
+        onView(withId(R.id.characterRecyclerList)).check(withItemCount(mockCharacters.size))
+        onView(withId(R.id.characterRecyclerList)).perform(ViewActions.swipeUp())
+        onView(withId(R.id.characterRecyclerList)).check(withItemCount(mockCharacters.size))
+    }
+
+    @Test
     fun loadPaginatedCharactersOnScroll_whenErrorFetchingMoreCharacters_shouldShowSnackbarError() {
         val apiError = ApiError.HttpError(400, "Error")
 
