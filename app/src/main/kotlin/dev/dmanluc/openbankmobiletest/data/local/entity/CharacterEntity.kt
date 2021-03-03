@@ -10,7 +10,6 @@ import java.util.*
 /**
  * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
  * @version  1
- * @since    2019-08-31.
  *
  * Room database entity which models domain character
  *

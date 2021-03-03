@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -432,9 +431,9 @@ class CharactersFragmentInstrumentedTest : AutoCloseKoinTest() {
 
     private fun launchFragment(): NavController {
         val mockNavController = mockk<NavController>(relaxed = true)
-        val marketProductsScenario =
+        val charactersScreenScenario =
             launchFragmentInContainer<CharactersFragment>(themeResId = R.style.Theme_OpenbankMobileTest)
-        marketProductsScenario.onFragment { fragment ->
+        charactersScreenScenario.onFragment { fragment ->
             this.fragment = fragment
 
             componentIdlingResource = fragment.countingIdlingResource

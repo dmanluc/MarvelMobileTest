@@ -110,13 +110,13 @@ class CharacterDetailFragmentInstrumentedTest {
 
     private fun launchFragment(): NavController {
         val mockNavController = mockk<NavController>(relaxed = true)
-        val marketProductsScenario =
+        val characterDetailsScreenScenario =
             launchFragmentInContainer<CharacterDetailFragment>(fragmentArgs = Bundle().apply {
                 putParcelable("character", mockCharacters.first())
                 putString("title", mockCharacters.first().name)
             }, themeResId = R.style.Theme_OpenbankMobileTest)
 
-        marketProductsScenario.onFragment { fragment ->
+        characterDetailsScreenScenario.onFragment { fragment ->
             this.fragment = fragment
 
             Navigation.setViewNavController(fragment.requireView(), mockNavController)

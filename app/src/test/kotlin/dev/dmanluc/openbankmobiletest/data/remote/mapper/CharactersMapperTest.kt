@@ -17,12 +17,12 @@ class CharactersMapperTest {
 
     @Test
     fun `map characters api response to domain character list`() {
-        val mockMarketApiResponse = MockDataProvider.createMockCharactersApiResponse()
+        val mockMarvelCharactersApiResponse = MockDataProvider.createMockCharactersApiResponse()
 
-        val mapperResult = mockMarketApiResponse.toDomainModel(gson)
+        val mapperResult = mockMarvelCharactersApiResponse.toDomainModel(gson)
 
         assertThat(mapperResult, notNullValue())
-        assertEquals(mapperResult.size, mockMarketApiResponse.data?.results?.size)
+        assertEquals(mapperResult.size, mockMarvelCharactersApiResponse.data?.results?.size)
 
         with(mapperResult[0]) {
             assertEquals(this.name, "3-D Man")

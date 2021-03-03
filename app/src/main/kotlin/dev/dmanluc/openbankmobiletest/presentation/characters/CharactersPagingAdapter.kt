@@ -14,7 +14,7 @@ import dev.dmanluc.openbankmobiletest.domain.model.PagingLoadTrackingState
  * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
  * @version  1
  *
- * Adapter which populates market product list with market product items
+ * Adapter which populates character list with character items
  *
  */
 class CharactersPagingAdapter(

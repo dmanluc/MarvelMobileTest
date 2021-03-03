@@ -22,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * @author   Daniel Manrique Lucas <dmanluc91@gmail.com>
  * @version  1
  *
- * First flow fragment which shows characters list from remote data source and user can navigate to its detail when clicking on it
+ * First flow fragment which shows characters list from repository and user can navigate to its detail when clicking on it
  *
  */
 class CharactersFragment : Fragment(R.layout.fragment_character_list) {

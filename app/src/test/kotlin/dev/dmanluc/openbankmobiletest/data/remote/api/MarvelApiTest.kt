@@ -11,7 +11,7 @@ import java.net.HttpURLConnection
  * @author Daniel Manrique Lucas <dmanluc91@gmail.com>
  * @version 1
  */
-class MarketApiTest : BaseApiTest() {
+class MarvelApiTest : BaseApiTest() {
 
     @Test
     fun `success getting characters from marvel api`() {
