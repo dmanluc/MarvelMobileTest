@@ -16,16 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
+            android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             tools:itemCount="20"
-            android:visibility="visible"
             tools:listitem="@layout/item_character_list" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieLoadingCharacters"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,14 +34,15 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading_lottie"
-            app:lottie_repeatMode="reverse" />
+            app:lottie_repeatMode="reverse"
+            tools:visibility="visible" />
 
         <dev.dmanluc.openbankmobiletest.presentation.custom.ErrorView
             android:id="@+id/errorView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
