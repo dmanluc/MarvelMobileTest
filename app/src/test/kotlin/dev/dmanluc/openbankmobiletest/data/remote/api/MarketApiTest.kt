@@ -28,11 +28,11 @@ class MarketApiTest : BaseApiTest() {
     }
 
     @Test(expected = HttpException::class)
-    fun `error getting characters from marvel api with http bad request exception`() {
+    fun `error getting characters from marvel api with http 409 error (conflict) exception`() {
         mockHttpResponse(
             mockServer,
             MOCK_CHARACTERS_JSON_FILENAME,
-            HttpURLConnection.HTTP_BAD_REQUEST
+            HttpURLConnection.HTTP_CONFLICT
         )
         runBlocking {
             apiService.getCharacters("", "", "", 0)
