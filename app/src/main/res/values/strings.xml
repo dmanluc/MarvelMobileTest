@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Marvel Characters</string>
 
-    <string name="no_internet_connection_text">It seems you are offline. Please turn on connectivity and retry again or swipe from top"</string>
+    <string name="no_internet_connection_text">It seems you are offline. Please retry again or swipe from top when connected"</string>
     <string name="error_fetching_characters_text">Sorry but an error happened when loading characters</string>
     <string name="empty_characters_view_text">No characters found</string>
     <string name="retry_loading_action_text">Retry</string>
