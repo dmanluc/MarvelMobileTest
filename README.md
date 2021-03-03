@@ -5,7 +5,9 @@ Openbank Android Mobile Test
 This is the android app for the Openbank Mobile Test. It consists of a master-detail app for showing Marvel characters. Because of its simplicity it is not a multi-module app but for larger and complex applications it should be done in that way.
 
 ## Architecture
-This app is developed based on a clean architecture basis (multilayered with presentation, domain and data layers), followed by a MVVM architectural pattern. It follows SOLID principles and some other software patterns such as Repository pattern, Observer pattern, UseCase Pattern or Delegation pattern. Also, as view states are treated in a machine-state-based way, this pattern could be considered more close to an MVI one.
+This app is developed based on a clean architecture basis (multilayered with presentation, domain and data layers), followed by a MVVM architectural pattern. Also, as view states are treated in a machine-state-based way, this pattern could be considered more close to an MVI one.
+
+Moreover, the app follows SOLID principles and some other software patterns such as Repository pattern, Observer pattern, UseCase Pattern or Delegation pattern. 
 
 ## Considerations for development
 
