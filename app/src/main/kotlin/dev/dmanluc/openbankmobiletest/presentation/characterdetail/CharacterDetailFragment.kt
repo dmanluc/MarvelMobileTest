@@ -11,6 +11,7 @@ import dev.dmanluc.openbankmobiletest.databinding.FragmentCharacterDetailBinding
 import dev.dmanluc.openbankmobiletest.domain.model.Character
 import dev.dmanluc.openbankmobiletest.domain.model.CharacterUrlType
 import dev.dmanluc.openbankmobiletest.domain.model.UrlItem
+import dev.dmanluc.openbankmobiletest.presentation.custom.ChipDetailInfoDataItem
 import dev.dmanluc.openbankmobiletest.utils.*
 
 /**
@@ -53,10 +54,28 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
                 onExceptionDelegate = { applyAfterLoadingCharacterImageAction() })
 
             characterDetailDescription.textOrHide(character.description)
-            characterDetailComicsNumber.text = character.comicsSummary.available.toString()
-            characterDetailSeriesNumber.text = character.seriesSummary.available.toString()
-            characterDetailEventsNumber.text = character.eventsSummary.available.toString()
-            characterDetailStoriesNumber.text = character.storiesSummary.available.toString()
+
+            val comicsData = ChipDetailInfoDataItem(
+                R.string.character_detail_featured_comics_text,
+                character.comicsSummary.available.toString()
+            )
+            val seriesData = ChipDetailInfoDataItem(
+                R.string.character_detail_featured_series_text,
+                character.seriesSummary.available.toString()
+            )
+            val eventsData = ChipDetailInfoDataItem(
+                R.string.character_detail_featured_events_text,
+                character.eventsSummary.available.toString()
+            )
+            val storiesData = ChipDetailInfoDataItem(
+                R.string.character_detail_featured_stories_text,
+                character.storiesSummary.available.toString()
+            )
+
+            characterDetailComics.setData(comicsData)
+            characterDetailSeries.setData(seriesData)
+            characterDetailEvents.setData(eventsData)
+            characterDetailStories.setData(storiesData)
 
             character.urls?.let(::setupCharacterLinkResourcesNavigation)
                 ?: characterDetailAdditionalInfoTitle.hide()

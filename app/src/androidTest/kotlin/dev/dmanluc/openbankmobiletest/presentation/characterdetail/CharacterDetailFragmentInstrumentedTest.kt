@@ -61,8 +61,8 @@ class CharacterDetailFragmentInstrumentedTest {
         val expectedIntent = allOf(hasAction(Intent.ACTION_VIEW), hasData(uriLink))
         intending(expectedIntent).respondWith(Instrumentation.ActivityResult(0, null))
 
-        onView(withId(R.id.character_detail_additional_info_detail_res)).isVisible()
-        onView(withId(R.id.character_detail_additional_info_detail_res)).perform(click())
+        onView(withId(R.id.characterDetailAdditionalInfoDetailRes)).isVisible()
+        onView(withId(R.id.characterDetailAdditionalInfoDetailRes)).perform(click())
 
         intended(expectedIntent)
     }
@@ -79,8 +79,8 @@ class CharacterDetailFragmentInstrumentedTest {
         val expectedIntent = allOf(hasAction(Intent.ACTION_VIEW), hasData(uriLink))
         intending(expectedIntent).respondWith(Instrumentation.ActivityResult(0, null))
 
-        onView(withId(R.id.character_detail_additional_info_wiki_res)).isVisible()
-        onView(withId(R.id.character_detail_additional_info_wiki_res)).perform(click())
+        onView(withId(R.id.characterDetailAdditionalInfoWikiRes)).isVisible()
+        onView(withId(R.id.characterDetailAdditionalInfoWikiRes)).perform(click())
 
         intended(expectedIntent)
     }
@@ -97,8 +97,8 @@ class CharacterDetailFragmentInstrumentedTest {
         val expectedIntent = allOf(hasAction(Intent.ACTION_VIEW), hasData(uriLink))
         intending(expectedIntent).respondWith(Instrumentation.ActivityResult(0, null))
 
-        onView(withId(R.id.character_detail_additional_info_comics_res)).isVisible()
-        onView(withId(R.id.character_detail_additional_info_comics_res)).perform(click())
+        onView(withId(R.id.characterDetailAdditionalInfoComicsRes)).isVisible()
+        onView(withId(R.id.characterDetailAdditionalInfoComicsRes)).perform(click())
 
         intended(expectedIntent)
     }
