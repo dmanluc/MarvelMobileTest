@@ -1,2 +1,2 @@
 include(":app")
-rootProject.name = "OpenbankMobileTest"
+rootProject.name = "MarvelMobileTest"

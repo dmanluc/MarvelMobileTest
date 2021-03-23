@@ -6,6 +6,6 @@ object AppConfig {
     const val versionName = "1.0.0"
     const val buildToolsVersion = "30.0.2"
 
-    const val androidTestInstrumentation = "dev.dmanluc.openbankmobiletest.runner.FakeRunner"
+    const val androidTestInstrumentation = "dev.dmanluc.marvelmobiletest.runner.FakeRunner"
     const val proguardConsumerRules = "proguard-rules.pro"
 }

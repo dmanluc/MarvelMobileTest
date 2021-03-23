@@ -11,7 +11,7 @@ android {
     buildToolsVersion(AppConfig.buildToolsVersion)
 
     defaultConfig {
-        applicationId = "dev.dmanluc.openbankmobiletest"
+        applicationId = "dev.dmanluc.marvelmobiletest"
         minSdkVersion(AppConfig.minSdk)
         targetSdkVersion(AppConfig.targetSdk)
         versionCode = AppConfig.versionCode

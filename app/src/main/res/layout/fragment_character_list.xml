@@ -37,7 +37,7 @@
             app:lottie_repeatMode="reverse"
             tools:visibility="visible" />
 
-        <dev.dmanluc.openbankmobiletest.presentation.custom.ErrorView
+        <dev.dmanluc.marvelmobiletest.presentation.custom.ErrorView
             android:id="@+id/errorView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
