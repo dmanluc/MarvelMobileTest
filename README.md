@@ -1,4 +1,4 @@
-# marvel-android-mobile-test
+# MarvelMobileTest
 Marvel Android Mobile Test
 
 ## Purpose
