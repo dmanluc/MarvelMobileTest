@@ -15,7 +15,7 @@ class CharactersRepositoryImpl(
     private val dataSourceManager: DataSourceManager
 ) : CharactersRepository {
 
-    override suspend fun getCharacters(
+    override fun getCharacters(
         pagingOffset: Int,
         forceRefresh: Boolean
     ): Flow<Either<ApiError, List<Character>>> {

@@ -20,7 +20,7 @@ abstract class CharactersDao {
     abstract suspend fun getCharacters(fromOffset: Int): List<CharacterEntity>
 
     @Query("DELETE FROM marvelCharacters")
-    abstract fun deleteAllCharacters()
+    abstract suspend fun deleteAllCharacters()
 
     @Transaction
     open suspend fun replaceAllCharacters(items: List<CharacterEntity>) {
